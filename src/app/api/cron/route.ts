@@ -10,12 +10,22 @@ export async function GET() {
   try {
     const stocks = await getMarketCapRanking();
 
-    // Supabase 업데이트
-    const { error: deleteError } = await supabase
+    // 기존 데이터 확인
+    const { data: existingData, error: selectError } = await supabase
       .from('stocks')
-      .delete();
+      .select('symbol');
 
-    if (deleteError) throw deleteError;
+    if (selectError) throw selectError;
+
+    // 데이터가 존재할 경우에만 삭제 수행
+    if (existingData && existingData.length > 0) {
+      const { error: deleteError } = await supabase
+        .from('stocks')
+        .delete()
+        .gte('rank', 0); 
+
+      if (deleteError) throw deleteError;
+    }
 
     const formattedStocks = stocks.map(stock => ({
       symbol: stock.symbol,
