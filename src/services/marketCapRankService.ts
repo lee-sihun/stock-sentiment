@@ -12,7 +12,6 @@ export async function getMarketCapRanking(): Promise<Stock[]> {
       .slice(0, MARKET.TOP_STOCKS_COUNT)
       .map((index, element) => ({
         symbol: $(element).find('.company-code').text().trim(),
-        created_at: new Date().toISOString(),
         rank: index + 1,
       }))
       .get();
