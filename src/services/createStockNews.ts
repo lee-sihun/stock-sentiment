@@ -3,7 +3,6 @@ import { getStockNews } from './getStockNews';
 
 export async function createStockNews(): Promise<void> {
   try {
-
     // 주식 종목 데이터 조회
     const { data: stocks, error: stocksError } = await supabase
       .from('stocks')
@@ -24,11 +23,6 @@ export async function createStockNews(): Promise<void> {
       await Promise.all(batch.map(async (stock) => {
         try {
           const newsArticles = await getStockNews(stock.symbol);
-          
-          if (!newsArticles || newsArticles.length === 0) {
-            console.log(`${stock.symbol} 종목의 뉴스가 없습니다.`);
-            return;
-          }
 
           const formattedNews = newsArticles
             .filter(article => 

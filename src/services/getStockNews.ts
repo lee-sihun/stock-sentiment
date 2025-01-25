@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { supabase } from '@/lib/supabase';
 import * as cheerio from 'cheerio';
 import { NewsArticle } from '@/types/news';
 import { NEWS } from '@/config/constants';
@@ -9,7 +10,7 @@ export async function getStockNews(symbol: string): Promise<NewsArticle[]> {
     const response = await axios.get(url);
     const $ = cheerio.load(response.data);
 
-    return $('body > c-wiz > div > main > div:nth-child(2) > c-wiz > c-wiz')
+    const articles = $('body > c-wiz > div > main > div:nth-child(2) > c-wiz > c-wiz')
       .slice(0, NEWS.NEWS_COUNT)
       .map((_, element) => {
         const $article = $(element).find('article');
@@ -19,25 +20,38 @@ export async function getStockNews(symbol: string): Promise<NewsArticle[]> {
         const source = $article.find('div[data-n-tid="9"]').text().trim();
         const publishedAt = $article.find('time[datetime]').attr('datetime');
         
-        
-        // 썸네일 URL 조합
+        // 썸네일 URL 조합 및 유효성 검사
         const thumbnailUrl = rawThumbnailUrl 
           ? `https://news.google.com${rawThumbnailUrl.replace(/-w\d+-h\d+-p-df(-rw)?$/, '')}` 
-          : '';
+          : 'https://via.placeholder.com/300x200?text=No+Image'; // 기본 이미지 URL
           
-        return headline && publishedAt && link ? {
+        return headline && publishedAt && link && thumbnailUrl ? {
           headline,
           thumbnailUrl,
           link,
-          source,
+          source: source || 'Unknown',
           publishedAt,
         } : null;
       })
       .get()
-      .filter((item): item is NewsArticle => item !== null);
+      .filter((article): article is NewsArticle => article !== null);
 
+    // 뉴스가 없는 경우 stocks 테이블에서 제거
+    if (articles.length === 0) {
+      const { error } = await supabase
+        .from('stocks')
+        .delete()
+        .eq('symbol', symbol);
+
+      if (error) {
+        console.error(`${symbol} 종목 제거 실패:`, error);
+      }
+    }
+
+    return articles;
+    
   } catch (error) {
-    console.error('뉴스 데이터 조회 실패:', error);
-    throw error;
+    console.error(`${symbol} 뉴스 수집 실패:`, error);
+    return [];
   }
 }
