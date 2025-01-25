@@ -17,7 +17,7 @@ export async function getMarketCapRanking(): Promise<Stock[]> {
       .get();
 
   } catch (error) {
-    console.error('데이터 조회 실패:', error);
+    console.error('시가총액 조회 실패:', error);
     throw error;
   }
 }
