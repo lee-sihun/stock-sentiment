@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server';
-import { getMarketCapRanking } from '@/services/marketCapRankService';
+import { getStockRank } from '@/services/getStockRank';
 
 export async function GET() {
   try {
-    const stocks = await getMarketCapRanking();
+    const stocks = await getStockRank();
     return NextResponse.json(stocks);
   } catch (error) {
     console.error('Error fetching stocks:', error);

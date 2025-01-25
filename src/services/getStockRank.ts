@@ -3,7 +3,7 @@ import * as cheerio from 'cheerio';
 import { Stock } from '@/types/stock';
 import { MARKET } from '@/config/constants';
 
-export async function getMarketCapRanking(): Promise<Stock[]> {
+export async function getStockRank(): Promise<Stock[]> {
   try {
     const response = await axios.get('https://companiesmarketcap.com/');
     const $ = cheerio.load(response.data);
