@@ -15,9 +15,29 @@ jobs:
   update-stock-data:
     runs-on: ubuntu-latest
     steps:
+      - name: Echo Secret Existence
+        run: |
+          if [ -n "${{ secrets.CRON_SECRET_TOKEN }}" ]; then
+            echo "CRON_SECRET_TOKEN exists"
+          else
+            echo "CRON_SECRET_TOKEN is empty"
+          fi
+
       - name: Update Stock Data
         run: |
-          curl -X GET \
+          response=$(curl -v -X GET \
           -H "x-cron-secret: ${{ secrets.CRON_SECRET_TOKEN }}" \
           -H "Content-Type: application/json" \
-          https://stock-sentiment-peach.vercel.app/api/cron
+          -w "\n%{http_code}" \
+          https://stock-sentiment-peach.vercel.app/api/cron)
+
+          status_code=$(echo "$response" | tail -n1)
+          body=$(echo "$response" | head -n1)
+
+          echo "Status code: $status_code"
+          echo "Response body: $body"
+
+          if [ "$status_code" != "200" ]; then
+            echo "Request failed"
+            exit 1
+          fi
