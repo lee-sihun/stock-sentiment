@@ -2,14 +2,14 @@ name: Daily Stock Data Update
 
 on:
   schedule:
-    - cron: '0 13 * * *' 
+    - cron: "0 13 * * *"
   workflow_dispatch:
     inputs:
-        debug_enabled:
-          description: '디버그 로그 활성화'
-          required: false
-          default: false
-          type: boolean
+      debug_enabled:
+        description: "디버그 로그 활성화"
+        required: false
+        default: false
+        type: boolean
 
 jobs:
   update-stock-data:
@@ -19,4 +19,5 @@ jobs:
         run: |
           curl -X GET \
           -H "x-cron-secret: ${{ secrets.CRON_SECRET_TOKEN }}" \
+          -H "Content-Type: application/json" \
           https://stock-sentiment-peach.vercel.app/api/cron
