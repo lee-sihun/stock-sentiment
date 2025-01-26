@@ -1,0 +1,22 @@
+name: Daily Stock Data Update
+
+on:
+  schedule:
+    - cron: '0 13 * * *' 
+  workflow_dispatch:
+    inputs:
+        debug_enabled:
+          description: '디버그 로그 활성화'
+          required: false
+          default: false
+          type: boolean
+
+jobs:
+  update-stock-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update Stock Data
+        run: |
+          curl -X GET \
+          -H "x-cron-secret: ${{ secrets.CRON_SECRET_TOKEN }}" \
+          https://stock-sentiment-peach.vercel.app/api/cron
