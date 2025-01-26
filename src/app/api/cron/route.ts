@@ -2,11 +2,19 @@ import { NextResponse } from 'next/server';
 import { updateStockRank } from '@/services/updateStockRank';
 import { createStockNews } from '@/services/createStockNews';
 
-// Vercel Cron Job 설정
-export const revalidate = 0; // 캐시 비활성화 
 export const dynamic = 'force-dynamic'; // 동적 라우트 
 
-export async function GET() {
+export async function GET(request: Request) {
+  // 인증 토큰 검증
+  const authToken = request.headers.get('x-cron-secret');
+  
+  if (authToken !== process.env.CRON_SECRET_TOKEN) {
+    return NextResponse.json(
+      { error: 'Unauthorized' }, 
+      { status: 401 }
+    );
+  }
+
   try {
     await updateStockRank();
     await createStockNews();
