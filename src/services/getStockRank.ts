@@ -13,6 +13,7 @@ export async function getStockRank(): Promise<Stock[]> {
       .map((index, element) => ({
         symbol: $(element).find('.company-code').text().trim(),
         rank: index + 1,
+        name: $(element).find('.company-name').text().trim(),
       }))
       .get();
 

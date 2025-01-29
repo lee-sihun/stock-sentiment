@@ -17,6 +17,7 @@ export async function updateStockRank(): Promise<void> {
     const formattedStocks = stocks.map(stock => ({
       symbol: stock.symbol,
       rank: stock.rank,
+      name: stock.name,
     }));
 
     const { error: insertError } = await supabase
