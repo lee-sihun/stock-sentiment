@@ -6,7 +6,7 @@ export async function updateNewsSentiment(): Promise<void> {
     // stocks 테이블 조회
     const { data: stocks, error: stocksError } = await supabase
       .from('stocks')
-      .select('symbol')
+      .select('symbol, name')
       .order('rank');
 
     if (stocksError) throw stocksError;
@@ -27,7 +27,7 @@ export async function updateNewsSentiment(): Promise<void> {
 
         // 감정 분석 수행
         const headlines = news.map(article => article.headline);
-        const sentimentValues = await analyzeHeadlines(stock.symbol, headlines);
+        const sentimentValues = await analyzeHeadlines(stock.name, headlines);
 
         // 분석 결과 업데이트
         for (let i = 0; i < news.length; i++) {
