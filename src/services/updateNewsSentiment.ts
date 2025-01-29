@@ -32,8 +32,8 @@ export async function updateNewsSentiment(): Promise<void> {
         // 분석 결과 업데이트
         for (let i = 0; i < news.length; i++) {
           if (sentimentValues[i] === undefined) {
-            console.warn(`${stock.symbol}: 인덱스 ${i}의 sentiment 값이 없음, 2로 설정`);
-            sentimentValues[i] = 2;
+            console.warn(`${stock.symbol}: 인덱스 ${i}의 sentiment 값이 없음, 기본값 0으로 설정`);
+            sentimentValues[i] = 0;
           }
 
           const { error: updateError } = await supabase
