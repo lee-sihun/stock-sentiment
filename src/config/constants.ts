@@ -16,5 +16,5 @@ export const AI = {
     openai/gpt-4o-2024-11-20
     openai/gpt-4o-mini
   */
-  MODEL: 'deepseek/deepseek-r1',
+  MODEL: 'deepseek/deepseek-chat',
 } as const;
