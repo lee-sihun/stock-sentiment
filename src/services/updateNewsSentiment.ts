@@ -27,14 +27,18 @@ export async function updateNewsSentiment(): Promise<void> {
 
         // 감정 분석 수행
         const headlines = news.map(article => article.headline);
-        const sentiments = await analyzeHeadlines(stock.symbol, headlines);
-        const sentimentValues = sentiments.split('\n');
+        const sentimentValues = await analyzeHeadlines(stock.symbol, headlines);
 
         // 분석 결과 업데이트
         for (let i = 0; i < news.length; i++) {
+          if (sentimentValues[i] === undefined) {
+            console.warn(`${stock.symbol}: 인덱스 ${i}의 sentiment 값이 없음, 2로 설정`);
+            sentimentValues[i] = 2;
+          }
+
           const { error: updateError } = await supabase
             .from('news')
-            .update({ sentiment: parseInt(sentimentValues[i]) })
+            .update({ sentiment: sentimentValues[i] })
             .eq('id', news[i].id);
 
           if (updateError) throw updateError;
