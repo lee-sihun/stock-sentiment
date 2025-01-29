@@ -32,7 +32,7 @@ export async function updateTotalSentiment(): Promise<void> {
           sum + (article.sentiment || 0), 0);
 
         const { error: insertError } = await supabase
-          .from('sentiment')
+          .from('sentiments')
           .insert({
             stockId: stock.symbol,
             sentiment: totalSentiment
