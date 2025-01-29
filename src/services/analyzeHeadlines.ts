@@ -22,7 +22,7 @@ Respond with exactly ${headlines.length} lines, one number per line, matching th
         messages: [{ role: 'user', content: prompt }]
       });
 
-      console.log(`API 응답:`, JSON.stringify(response, null, 2));
+      // console.log(`API 응답:`, JSON.stringify(response, null, 2));
       if (!response?.choices?.[0]?.message?.content) {
         throw new Error('API 응답 형식 오류');
       }
