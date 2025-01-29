@@ -7,13 +7,19 @@ ${headlines.map((headline, index) => `Headline${index + 1}: ${headline}`).join('
 Respond with exactly ${headlines.length} lines, one number per line, matching the headline numbers.`;
 
   try {
+    console.log(`${company} 분석 시작, 헤드라인 수: ${headlines.length}`);
+
     const response = await openai.chat.completions.create({
       model: AI.MODEL,
       temperature: 0,
-      messages: [
-        { role: 'user', content: prompt }
-      ],
+      messages: [{ role: 'user', content: prompt }]
     });
+
+    console.log(`API 응답:`, JSON.stringify(response, null, 2));
+    if (!response?.choices?.[0]?.message?.content) {
+      console.error(`API 응답 형식 오류:`, response);
+      return Array(headlines.length).fill(0);
+    }
 
     const content = response.choices[0]?.message.content || '';
     return content.split('\n').map(value => {
