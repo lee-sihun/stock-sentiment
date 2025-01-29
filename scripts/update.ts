@@ -1,6 +1,7 @@
 import { updateStockRank } from '../src/services/updateStockRank';
 import { createStockNews } from '../src/services/createStockNews';
 import { updateNewsSentiment } from '@/services/updateNewsSentiment';
+import { updateTotalSentiment } from '@/services/updateTotalSentiment';
 
 async function main() {
   try {
@@ -12,6 +13,9 @@ async function main() {
 
     console.log('뉴스 감정 분석 시작...');
     await updateNewsSentiment();
+
+    console.log('감정 점수 합산 시작...');
+    await updateTotalSentiment();
     
     console.log('모든 작업이 완료되었습니다.');
   } catch (error) {
