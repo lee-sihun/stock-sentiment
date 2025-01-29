@@ -22,7 +22,10 @@ export async function updateTotalSentiment(): Promise<void> {
           .gte('created_at', today);
 
         if (newsError) throw newsError;
-        if (!news || news.length === 0) continue;
+        if (!news || news.length === 0) {
+          console.log(`${stock.symbol}: 오늘 생성된 뉴스 없음`);
+          continue;
+        }
 
         // 감정 점수 합산
         const totalSentiment = news.reduce((sum, article) => 
@@ -35,7 +38,9 @@ export async function updateTotalSentiment(): Promise<void> {
             sentiment: totalSentiment
           } as Sentiment);
 
-        if (insertError) throw insertError;
+        if (insertError) {
+          throw new Error(`Insert 실패: ${insertError.message}`);
+        }
         
         console.log(`${stock.symbol} 감정 점수 합산 완료: ${totalSentiment}`);
       } catch (error) {
