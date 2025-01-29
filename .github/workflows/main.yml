@@ -15,29 +15,20 @@ jobs:
   update-stock-data:
     runs-on: ubuntu-latest
     steps:
-      - name: Echo Secret Existence
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      - name: Install Dependencies
+        run: npm install
+        
+      - name: Run Stock Updates
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         run: |
-          if [ -n "${{ secrets.CRON_SECRET_TOKEN }}" ]; then
-            echo "CRON_SECRET_TOKEN exists"
-          else
-            echo "CRON_SECRET_TOKEN is empty"
-          fi
-
-      - name: Update Stock Data
-        run: |
-          response=$(curl -v -X GET \
-          -H "x-cron-secret: ${{ secrets.CRON_SECRET_TOKEN }}" \
-          -H "Content-Type: application/json" \
-          -w "\n%{http_code}" \
-          https://stock-sentiment-peach.vercel.app/api/cron)
-
-          status_code=$(echo "$response" | tail -n1)
-          body=$(echo "$response" | head -n1)
-
-          echo "Status code: $status_code"
-          echo "Response body: $body"
-
-          if [ "$status_code" != "200" ]; then
-            echo "Request failed"
-            exit 1
-          fi
+          npx ts-node scripts/update.ts
