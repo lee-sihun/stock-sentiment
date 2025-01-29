@@ -26,4 +26,4 @@ jobs:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         run: |
           echo "스크립트 실행 시작..."
-          npx ts-node --project tsconfig.json scripts/update.ts || exit 1
+          npx ts-node -r tsconfig-paths/register scripts/update.ts || exit 1
