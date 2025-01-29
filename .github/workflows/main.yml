@@ -4,12 +4,6 @@ on:
   schedule:
     - cron: "0 13 * * *"
   workflow_dispatch:
-    inputs:
-      debug_enabled:
-        description: "디버그 로그 활성화"
-        required: false
-        default: false
-        type: boolean
 
 jobs:
   update-stock-data:
@@ -31,4 +25,4 @@ jobs:
           NEXT_PUBLIC_SUPABASE_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_KEY }}
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         run: |
-          npx ts-node scripts/update.ts
+          npx ts-node -T scripts/update.ts
