@@ -1,5 +1,4 @@
 import { supabase } from '@/lib/supabase';
-import { Sentiment } from '@/types/sentiment';
 
 export async function updateTotalSentiment(): Promise<void> {
   try {
@@ -34,9 +33,9 @@ export async function updateTotalSentiment(): Promise<void> {
         const { error: insertError } = await supabase
           .from('sentiments')
           .insert({
-            stockId: stock.symbol,
+            stock_id: stock.symbol,
             sentiment: totalSentiment
-          } as Sentiment);
+          });
 
         if (insertError) {
           throw new Error(`Insert 실패: ${insertError.message}`);
