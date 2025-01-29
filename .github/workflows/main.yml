@@ -25,4 +25,5 @@ jobs:
           NEXT_PUBLIC_SUPABASE_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_KEY }}
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         run: |
-          npx ts-node -T scripts/update.ts
+          echo "스크립트 실행 시작..."
+          npx ts-node -T scripts/update.ts || exit 1
