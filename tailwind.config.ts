@@ -14,5 +14,7 @@ export default {
       },
     },
   },
-  plugins: [],
+  corePlugins: {
+    preflight: true, // Tailwind의 기본 reset 활성화
+  },
 } satisfies Config;
