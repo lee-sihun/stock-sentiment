@@ -1,5 +1,25 @@
-@import './reset.css';
+@import "./reset.css";
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* 기본 배경 색 */
+body {
+  background-color: #131314;
+}
+
+/* footer 하단에 고정 */
+html,
+body {
+  height: 100vh;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
