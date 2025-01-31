@@ -1,7 +1,7 @@
 import { supabase } from "@/lib/supabase";
 import { Sentiment } from "@/types/sentiment";
 
-export async function getTodaySentiments(): Promise<Sentiment[]> {
+export async function getTodaySentiments(stockId?: string): Promise<Sentiment[]> {
   try {
     const today = new Date();
     const todayStr = today.toISOString().split('T')[0];
@@ -9,23 +9,35 @@ export async function getTodaySentiments(): Promise<Sentiment[]> {
     today.setDate(today.getDate() - 1);
     const yesterdayStr = today.toISOString().split('T')[0];
     
-    const { data, error } = await supabase
+    let query = supabase
       .from('sentiments')
       .select('*')
       .gte('created_at', todayStr)
       .order('created_at', { ascending: false });
 
-    // console.log('Today Data:', data);
+    // stockId가 있으면 필터 추가
+    if (stockId !== undefined) {
+      query = query.eq('stock_id', stockId);
+    }
+
+    const { data, error } = await query;
+
     if (error) throw error;
 
     if (data.length === 0) {
-      const { data: yesterdayData, error: yesterdayError } = await supabase
+      let yesterdayQuery = supabase
         .from('sentiments')
         .select('*')
         .gte('created_at', yesterdayStr)
         .order('created_at', { ascending: false });
 
-      // console.log('Yesterday Data:', yesterdayData);
+      // stockId가 있으면 어제 데이터에도 필터 추가
+      if (stockId !== undefined) {
+        yesterdayQuery = yesterdayQuery.eq('stock_id', stockId);
+      }
+
+      const { data: yesterdayData, error: yesterdayError } = await yesterdayQuery;
+
       if (yesterdayError) throw yesterdayError;
       return yesterdayData || [];
     }

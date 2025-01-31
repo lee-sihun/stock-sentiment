@@ -1,13 +1,14 @@
 "use client";
 import { useTodaySentiments } from "@/hooks/useTodaySentiments";
 import MarketInsightSkeleton from "./MarketInsightSkeleton";
+import { STOCK_COUNT } from "@/config/constants";
 
 export default function MarketInsight() {
   const { data: sentiments, isLoading } = useTodaySentiments();
 
   if (isLoading) return <MarketInsightSkeleton />;
 
-  const processedSentiments = sentiments?.reverse().slice(0, 15);
+  const processedSentiments = sentiments?.reverse().slice(0, STOCK_COUNT.STOCK_COUNT - 1);
   const totalSentiment =
     processedSentiments?.reduce((sum, item) => {
       const normalizedSentiment =

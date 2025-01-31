@@ -1,6 +1,7 @@
 import { supabase } from '@/lib/supabase';
 import { Stock } from '@/types/stock';
 import yahooFinance from 'yahoo-finance2';
+import { getTodaySentiments } from './getTodaySentiments';
 
 export async function getStocks(): Promise<Stock[]> {
   try {
@@ -14,7 +15,11 @@ export async function getStocks(): Promise<Stock[]> {
     const enrichedStocks = await Promise.all(
       data.map(async (stock) => {
         try {
-          const quote = await yahooFinance.quote(stock.symbol);
+          const [quote, sentiment] = await Promise.all([
+            yahooFinance.quote(stock.symbol),
+            getTodaySentiments(stock.symbol)
+          ]);
+
           return {
             rank: stock.rank,
             symbol: stock.symbol,
@@ -26,7 +31,8 @@ export async function getStocks(): Promise<Stock[]> {
             // @ts-expect-error 타입에러
             volume: quote.regularMarketVolume * quote.regularMarketPrice,
             // @ts-expect-error 타입에러
-            marketCap: quote.marketCap
+            marketCap: quote.marketCap,
+            sentiment: sentiment[0]["sentiment"]
           };
         } catch (error) {
           console.error(`Failed to fetch data for ${stock.symbol}:`, error);
@@ -37,7 +43,8 @@ export async function getStocks(): Promise<Stock[]> {
             name: stock.name,
             currentPrice: null,
             volume: null,
-            marketCap: null
+            marketCap: null,
+            sentiment: null
           };
         }
       })

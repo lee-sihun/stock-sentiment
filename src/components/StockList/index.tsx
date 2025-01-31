@@ -3,6 +3,9 @@ import { useState } from "react";
 import Star from "@public/svgs/star.svg";
 import Arrow from "@public/svgs/arrow.svg";
 import StockListItem from "./StockListItem";
+import { useStocks } from "@/hooks/useStocks";
+import { STOCK_COUNT } from "@/config/constants";
+import StockListItemSkeleton from "./StockListItemSkeleton";
 
 export default function StockList() {
   return (
@@ -28,17 +31,13 @@ export default function StockList() {
             현재 주가
           </div>
           <div className="h-full flex-1 shrink basis-[248px] flex items-center justify-end">
-            24시간 거래대금
+            정규시장 거래대금
           </div>
           <div className="h-full flex-1 shrink basis-[228px] flex items-center justify-end pr-[28px]">
             시가총액
           </div>
         </div>
-        <div className="flex flex-col w-full gap-[12px]">
-          {Array.from({ length: 15 }).map((_, index) => (
-            <StockListItem key={index} />
-          ))}
-        </div>
+        <ItemsContainer />
       </ul>
     </section>
   );
@@ -55,5 +54,28 @@ function PortfolioToggle() {
       <Star fill={active ? "#FFD900" : "white"} />
       포트폴리오
     </button>
+  );
+}
+
+function ItemsContainer() {
+  const { data, isLoading } = useStocks();
+
+  if (isLoading)
+    return (
+      <div className="flex flex-col w-full gap-[12px]">
+        {Array.from({ length: STOCK_COUNT.STOCK_COUNT }).map((_, index) => (
+          <StockListItemSkeleton key={index} />
+        ))}
+      </div>
+    );
+
+  const stocks = data?.reverse().slice(0, STOCK_COUNT.STOCK_COUNT - 1);
+
+  return (
+    <div className="flex flex-col w-full gap-[12px]">
+      {stocks?.map((stock) => (
+        <StockListItem key={stock.rank} stock={stock} />
+      ))}
+    </div>
   );
 }

@@ -18,3 +18,8 @@ export const AI = {
   */
   MODEL: 'deepseek/deepseek-chat',
 } as const;
+
+// 보여줄 종목 개수 
+export const STOCK_COUNT = {
+  STOCK_COUNT: 15,
+} as const;

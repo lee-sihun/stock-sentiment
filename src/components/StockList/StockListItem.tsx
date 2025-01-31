@@ -1,21 +1,28 @@
-export default function StockListItem() {
+import { formatKRW } from "@/utils/formatNumber";
+import { Stock } from "@/types/stock";
+
+interface StockListItemProps {
+  stock: Stock;
+}
+
+export default function StockListItem({ stock }: StockListItemProps) {
   return (
     <li className="flex w-full h-[63px] bg-[#22222A] rounded-lg text-[16px] text-[#AAAFBE] font-normal">
       <div className="h-full flex-1 shrink basis-[78px] flex items-center justify-center text-white">
-        #1
+        #{stock.rank}
       </div>
       <div className="h-full flex-1 shrink basis-[507px] flex items-center gap-[6px] pl-[24px]">
-        애플
-        <Sentiment sentiment={1} />
+        {stock.name}
+        <Sentiment sentiment={stock.sentiment ?? 0} />
       </div>
       <div className="h-full flex-1 shrink basis-[139px] flex items-center justify-end">
-        267,252원
+        {formatKRW(stock.currentPrice ?? 0)}
       </div>
       <div className="h-full flex-1 shrink basis-[248px] flex items-center justify-end">
-        18조 2,856억
+        {formatKRW(stock.volume ?? 0)}
       </div>
       <div className="h-full flex-1 shrink basis-[228px] flex items-center justify-end pr-[28px]">
-        4,806조 4,241억
+        {formatKRW(stock.marketCap ?? 0)}
       </div>
     </li>
   );
