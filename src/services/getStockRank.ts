@@ -14,6 +14,10 @@ export async function getStockRank(): Promise<Stock[]> {
         symbol: $(element).find('.company-code').text().trim(),
         rank: index + 1,
         name: $(element).find('.company-name').text().trim(),
+        currentPrice: null,
+        volume: null,
+        marketCap: null,
+        sentiment: null
       }))
       .get();
 
