@@ -1,7 +1,10 @@
+import Layout from "@/components/Layout";
+import StockList from "@/components/StockList";
+
 export default function Home() {
   return (
-    <div>
-      Stock Sentiment
-    </div>
+    <Layout>
+      <StockList />
+    </Layout>
   );
 }
