@@ -70,8 +70,8 @@ function ItemsContainer() {
     );
 
   const stocks = [...(data || [])]
-    .slice(0, STOCK_COUNT.STOCK_COUNT - 1)
-    .reverse();
+    .sort((a, b) => a.rank - b.rank)
+    .slice(0, STOCK_COUNT.STOCK_COUNT - 1);
 
   return (
     <div className="flex flex-col w-full gap-[12px]">
