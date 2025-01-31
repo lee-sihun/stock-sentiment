@@ -7,7 +7,7 @@ interface StockListItemProps {
 
 export default function StockListItem({ stock }: StockListItemProps) {
   return (
-    <li className="flex w-full h-[63px] bg-[#22222A] rounded-lg text-[16px] text-[#AAAFBE] font-normal">
+    <li className="flex w-full h-[63px] bg-[#22222A] rounded-lg text-[16px] text-[#AAAFBE] font-normal cursor-pointer">
       <div className="h-full flex-1 shrink basis-[78px] flex items-center justify-center text-white">
         #{stock.rank}
       </div>
@@ -16,7 +16,7 @@ export default function StockListItem({ stock }: StockListItemProps) {
         <Sentiment sentiment={stock.sentiment ?? 0} />
       </div>
       <div className="h-full flex-1 shrink basis-[139px] flex items-center justify-end">
-        {formatKRW(stock.currentPrice ?? 0)}
+        {formatKRW(stock.currentPrice ?? 0, true)}
       </div>
       <div className="h-full flex-1 shrink basis-[248px] flex items-center justify-end">
         {formatKRW(stock.volume ?? 0)}

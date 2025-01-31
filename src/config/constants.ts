@@ -23,3 +23,8 @@ export const AI = {
 export const STOCK_COUNT = {
   STOCK_COUNT: 15,
 } as const;
+
+// 환율
+export const EXCHANGE_RATE = {
+  USD_KRW: 1450,
+} as const;
