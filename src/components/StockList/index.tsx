@@ -69,7 +69,9 @@ function ItemsContainer() {
       </div>
     );
 
-  const stocks = data?.reverse().slice(0, STOCK_COUNT.STOCK_COUNT - 1);
+  const stocks = [...(data || [])]
+    .slice(0, STOCK_COUNT.STOCK_COUNT - 1)
+    .reverse();
 
   return (
     <div className="flex flex-col w-full gap-[12px]">
