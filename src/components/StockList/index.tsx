@@ -21,7 +21,7 @@ export default function StockList() {
           <div className="h-full flex-1 shrink basis-[78px] flex items-center justify-center">
             <Arrow />
           </div>
-          <div className="h-full flex-1 shrink basis-[507px] flex items-center">
+          <div className="h-full flex-1 shrink basis-[507px] flex items-center pl-[24px]">
             종목
           </div>
           <div className="h-full flex-1 shrink basis-[139px] flex items-center justify-end">

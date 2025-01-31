@@ -4,7 +4,7 @@ export default function StockListItem() {
       <div className="h-full flex-1 shrink basis-[78px] flex items-center justify-center text-white">
         #1
       </div>
-      <div className="h-full flex-1 shrink basis-[507px] flex items-center gap-[6px]">
+      <div className="h-full flex-1 shrink basis-[507px] flex items-center gap-[6px] pl-[24px]">
         애플
         <Sentiment sentiment={1} />
       </div>
