@@ -1,10 +1,14 @@
 import Layout from "@/components/Layout";
 import StockHeader from "@/components/StockHeader";
 
-export default function Page({ params }: { params: { slug: string } }) {
+type Params = Promise<{ slug: string }>;
+
+export default async function Page({ params }: { params: Params }) {
+  const { slug } = await params;
+
   return (
     <Layout>
-      <StockHeader symbol={params.slug} />
+      <StockHeader symbol={slug} />
     </Layout>
   );
 }
