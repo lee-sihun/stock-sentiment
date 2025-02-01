@@ -8,6 +8,9 @@ export function useTodaySentiments() {
     queryFn: async () => {
       const response = await axiosInstance.get<{ sentiments: Sentiment[] }>('/sentiments/today');
       return response.data.sentiments;
-    }
+    },
+    staleTime: 1000 * 60 * 5,
+    refetchOnWindowFocus: false,
+    refetchInterval: 1000 * 60 * 5,
   });
 }
