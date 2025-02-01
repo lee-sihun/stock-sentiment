@@ -1,5 +1,6 @@
 import { formatKRW } from "@/utils/formatNumber";
 import { Stock } from "@/types/stock";
+import Link from "next/link";
 
 interface StockListItemProps {
   stock: Stock;
@@ -7,24 +8,26 @@ interface StockListItemProps {
 
 export default function StockListItem({ stock }: StockListItemProps) {
   return (
-    <li className="flex w-full h-[63px] bg-[#22222A] rounded-lg text-[16px] text-[#AAAFBE] font-normal cursor-pointer">
-      <div className="h-full flex-1 shrink basis-[78px] flex items-center justify-center text-white">
-        #{stock.rank}
-      </div>
-      <div className="h-full flex-1 shrink basis-[507px] flex items-center gap-[6px] pl-[24px]">
-        {stock.name}
-        <Sentiment sentiment={stock.sentiment ?? 0} />
-      </div>
-      <div className="h-full flex-1 shrink basis-[139px] flex items-center justify-end">
-        {formatKRW(stock.currentPrice ?? 0, true)}
-      </div>
-      <div className="h-full flex-1 shrink basis-[248px] flex items-center justify-end">
-        {formatKRW(stock.volume ?? 0)}
-      </div>
-      <div className="h-full flex-1 shrink basis-[228px] flex items-center justify-end pr-[28px]">
-        {formatKRW(stock.marketCap ?? 0)}
-      </div>
-    </li>
+    <Link href={`/stocks/${stock.symbol}`}>
+      <li className="flex w-full h-[63px] bg-[#22222A] rounded-lg text-[16px] text-[#AAAFBE] font-normal cursor-pointer">
+        <div className="h-full flex-1 shrink basis-[78px] flex items-center justify-center text-white">
+          #{stock.rank}
+        </div>
+        <div className="h-full flex-1 shrink basis-[507px] flex items-center gap-[6px] pl-[24px]">
+          {stock.name}
+          <Sentiment sentiment={stock.sentiment ?? 0} />
+        </div>
+        <div className="h-full flex-1 shrink basis-[139px] flex items-center justify-end">
+          {formatKRW(stock.currentPrice ?? 0, true)}
+        </div>
+        <div className="h-full flex-1 shrink basis-[248px] flex items-center justify-end">
+          {formatKRW(stock.volume ?? 0)}
+        </div>
+        <div className="h-full flex-1 shrink basis-[228px] flex items-center justify-end pr-[28px]">
+          {formatKRW(stock.marketCap ?? 0)}
+        </div>
+      </li>
+    </Link>
   );
 }
 
