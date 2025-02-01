@@ -8,7 +8,9 @@ export default function MarketInsight() {
 
   if (isLoading) return <MarketInsightSkeleton />;
 
-  const processedSentiments = sentiments?.reverse().slice(0, STOCK_COUNT.STOCK_COUNT - 1);
+  const processedSentiments = sentiments
+    ?.reverse()
+    .slice(0, STOCK_COUNT.STOCK_COUNT - 1);
   const totalSentiment =
     processedSentiments?.reduce((sum, item) => {
       const normalizedSentiment =
@@ -21,12 +23,27 @@ export default function MarketInsight() {
     ? "from-[#B9E12A] to-[#29E4AF]"
     : "from-[#E12AB0] to-[#E42961]";
 
+  const gradientColor = isPositive
+    ? ["#B9E12A", "#29E4AF"]
+    : ["#E12AB0", "#E42961"];
+
   return (
     <section className="w-full flex flex-col items-center justify-center gap-[28px] mt-[73px]">
       <h2 className="text-[56px] font-bold text-white text-center leading-[67px]">
         현재 시장은{" "}
         <span
-          className={`bg-gradient-to-r ${gradient} text-transparent bg-clip-text`}
+          style={{
+            background: `-webkit-linear-gradient(left, ${gradientColor[0]}, ${gradientColor[1]})`,
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            color: gradientColor[0], 
+          }}
+          className={`
+            bg-gradient-to-r ${gradient} 
+            [background-clip:text] 
+            [-webkit-background-clip:text] 
+            text-transparent
+          `}
         >
           {isPositive ? "긍정적" : "부정적"}
         </span>
