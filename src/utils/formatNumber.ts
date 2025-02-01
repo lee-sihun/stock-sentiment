@@ -22,3 +22,10 @@ export const formatKRW= (value: number, isPrice = false) => {
   
   return new Intl.NumberFormat('ko-KR').format(Math.floor(convertedValue));
 };
+
+export const formatUSD = (value: number) => {
+  return new Intl.NumberFormat('en-US', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  }).format(value);
+};
