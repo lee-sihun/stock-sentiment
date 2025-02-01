@@ -41,6 +41,7 @@ export async function getStocks(): Promise<Stock[]> {
             rank: stock.rank,
             symbol: stock.symbol,
             name: stock.name,
+            exchange: null,
             currentPrice: null,
             volume: null,
             marketCap: null,
