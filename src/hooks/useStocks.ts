@@ -1,8 +1,8 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 import { axiosInstance } from '@/lib/axios';
 import { Stock } from '@/types/stock';
 
-export function useStocks() {
+export function useStocks(options?: Partial<UseQueryOptions<Stock[], Error>>) {
   return useQuery({
     queryKey: ['stocks'],
     queryFn: async () => {
@@ -12,5 +12,6 @@ export function useStocks() {
     staleTime: 1000 * 60 * 5,
     refetchOnWindowFocus: false,
     refetchInterval: 1000 * 60 * 5,
+    ...options
   });
 }
