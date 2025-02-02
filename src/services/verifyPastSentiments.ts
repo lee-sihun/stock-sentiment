@@ -3,17 +3,14 @@ import yahooFinance from "yahoo-finance2";
 
 export async function rollbackAccuracy() {
   try {
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from('sentiments')
       .update({ is_accurate: null })
       .eq('is_accurate', false)
       .gte('created_at', '2025-01-29')
-      .lte('created_at', '2025-01-31');
+      .lte('created_at', '2025-02-01');
 
     if (error) throw error;
-    
-    // @ts-expect-error 타입 에러
-    console.log('롤백 완료된 레코드 수:', data?.length);
   } catch (error) {
     console.error('롤백 실패:', error);
   }
