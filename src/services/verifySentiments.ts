@@ -21,7 +21,7 @@ export async function verifySentiments(): Promise<void> {
     for (const sentiment of sentiments) {
       try {
         // 주가 변동률 
-        const quote = await yahooFinance.quote(sentiment.stockId);
+        const quote = await yahooFinance.quote(sentiment.stock_id);
         // @ts-expect-error 타입 에러
         const priceChangePercent = quote.regularMarketChangePercent;
 
