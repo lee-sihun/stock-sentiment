@@ -5,12 +5,13 @@ export async function rollbackAccuracy() {
   try {
     const { error } = await supabase
       .from('sentiments')
-      .update({ is_accurate: null })
-      .eq('is_accurate', false)
-      .gte('created_at', '2025-01-29')
-      .lte('created_at', '2025-02-01');
+      .update({ 
+        is_accurate: null,
+        sentiment: 0 
+      });
 
     if (error) throw error;
+    console.log('전체 sentiment 초기화 완료');
   } catch (error) {
     console.error('롤백 실패:', error);
   }
