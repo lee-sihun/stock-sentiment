@@ -26,9 +26,17 @@ export async function updateTotalSentiment(): Promise<void> {
           continue;
         }
 
-        // 감정 점수 합산
-        const totalSentiment = news.reduce((sum, article) => 
-          sum + (article.sentiment || 0), 0);
+        // 감정 분석 결과 카운트
+        const positiveCount = news.filter(article => article.sentiment === 1).length;
+        const neutralCount = news.filter(article => article.sentiment === 0).length;
+        const negativeCount = news.filter(article => article.sentiment === -1).length;
+
+        const maxCount = Math.max(positiveCount, neutralCount, negativeCount);
+
+        // 최다 카운트의 sentiment 값 결정
+        const totalSentiment = 
+          maxCount === positiveCount ? 1 :
+          maxCount === negativeCount ? -1 : 0;
 
         const { error: insertError } = await supabase
           .from('sentiments')
