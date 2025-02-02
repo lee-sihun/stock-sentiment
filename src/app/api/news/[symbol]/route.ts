@@ -1,11 +1,14 @@
 import { getRecentNews } from '@/services/getRecentNews';
 import { NextResponse } from 'next/server';
 
+type Params = Promise<{ symbol: string }>;
+
 export async function GET(
   request: Request,
-  { params }: { params: { symbol: string } }
+  segmentData: { params: Params }
 ) {
   try {
+    const params = await segmentData.params;
     const news = await getRecentNews(params.symbol);
     return NextResponse.json(news);
   } catch (error) {
