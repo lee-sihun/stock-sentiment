@@ -19,11 +19,14 @@ export async function verifySentiments(): Promise<void> {
     if (error) throw error;
 
     for (const sentiment of sentiments) {
+      console.log(`[${sentiment.stock_id}] 검증 시작...`);
+
       try {
         // 주가 변동률 
         const quote = await yahooFinance.quote(sentiment.stock_id);
         // @ts-expect-error 타입 에러
         const priceChangePercent = quote.regularMarketChangePercent;
+        console.log(`[${sentiment.stock_id}] 주가 변동률: ${priceChangePercent}%`);
 
         // 예측 정확도 검증
         const isAccurate = (sentiment.sentiment > 0 && priceChangePercent > 0) || 
@@ -32,9 +35,11 @@ export async function verifySentiments(): Promise<void> {
         await supabase
           .from('sentiments')
           .update({ 
-            isAccurate,
+            is_accurate: isAccurate,
           })
           .eq('id', sentiment.id);
+
+        console.log(`[${sentiment.stock_id}] 검증 완료 - 예측 ${isAccurate ? '성공' : '실패'}`);
 
       } catch (error) {
         console.error(`${sentiment.stockId} 검증 실패:`, error);
