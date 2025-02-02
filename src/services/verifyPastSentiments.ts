@@ -9,7 +9,7 @@ export async function rollbackAccuracy() {
         is_accurate: null,
         sentiment: 0 
       })
-      .neq('id', 0);
+      .gt('id', '00000000-0000-0000-0000-000000000000');
 
     if (error) throw error;
     console.log('전체 sentiment 초기화 완료');
