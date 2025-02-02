@@ -3,10 +3,11 @@
 // import { updateNewsSentiment } from '@/services/updateNewsSentiment';
 // import { updateTotalSentiment } from '@/services/updateTotalSentiment';
 // import { verifySentiments } from '@/services/verifySentiments';
-import { verifyPastSentiments } from '@services/verifyPastSentiments' 
+import { verifyPastSentiments, rollbackAccuracy } from '@services/verifyPastSentiments' 
 
 async function main() {
   try {
+    await rollbackAccuracy();
     await verifyPastSentiments();
     // console.log('이전 감정 분석 검증 시작...');
     // await verifySentiments();

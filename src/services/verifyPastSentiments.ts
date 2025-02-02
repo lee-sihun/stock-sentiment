@@ -1,20 +1,20 @@
 import { supabase } from "@/lib/supabase";
 import yahooFinance from "yahoo-finance2";
 
-// export async function rollbackAccuracy() {
-//   try {
-//     const { error } = await supabase
-//       .from('sentiments')
-//       .update({ is_accurate: null })
-//       .eq('is_accurate', false)
-//       .gte('created_at', '2025-01-29')
-//       .lte('created_at', '2025-02-01');
+export async function rollbackAccuracy() {
+  try {
+    const { error } = await supabase
+      .from('sentiments')
+      .update({ is_accurate: null })
+      .eq('is_accurate', false)
+      .gte('created_at', '2025-01-29')
+      .lte('created_at', '2025-02-01');
 
-//     if (error) throw error;
-//   } catch (error) {
-//     console.error('롤백 실패:', error);
-//   }
-// }
+    if (error) throw error;
+  } catch (error) {
+    console.error('롤백 실패:', error);
+  }
+}
 
 export async function verifyPastSentiments(): Promise<void> {
   try {
@@ -52,6 +52,7 @@ export async function verifyPastSentiments(): Promise<void> {
           period2: period2Timestamp,
           interval: '1d', // 일간 데이터
         })
+        console.log(quote);
         // @ts-expect-error 타입 에러
         const priceChangePercent = quote[0].regularMarketChangePercent;
 
