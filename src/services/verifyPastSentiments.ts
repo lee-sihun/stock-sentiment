@@ -8,7 +8,8 @@ export async function rollbackAccuracy() {
       .update({ 
         is_accurate: null,
         sentiment: 0 
-      });
+      })
+      .neq('id', 0);
 
     if (error) throw error;
     console.log('전체 sentiment 초기화 완료');
