@@ -1,7 +1,7 @@
 import Smile from "@public/svgs/smile.svg";
 import Report from "@public/svgs/report.svg";
 
-export default function StockInsight() {
+export default function StockInsight({ symbol }: { symbol: string }) {
   return (
     <section className="flex flex-col gap-[16px]">
       <SentimentsChart />

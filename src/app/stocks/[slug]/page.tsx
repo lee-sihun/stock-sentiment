@@ -10,7 +10,7 @@ export default async function Page({ params }: { params: Params }) {
   return (
     <Layout>
       <StockHeader symbol={slug} />
-      <StockInsight />
+      <StockInsight symbol={slug} />
     </Layout>
   );
 }
