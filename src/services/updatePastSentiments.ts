@@ -42,11 +42,16 @@ export async function updatePastSentiments(): Promise<void> {
             maxCount === positiveCount ? 1 :
             maxCount === negativeCount ? -1 : 0;
 
-          const { error: updateError } = await supabase
-            .from('sentiments')
-            .update({ sentiment: totalSentiment })
-            .eq('stock_id', stock.symbol)
-            .eq('created_at', date);
+            const startOfDay = `${date}T00:00:00`;
+            const endOfDay = `${date}T23:59:59`;
+          
+            const { error: updateError } = await supabase
+              .from('sentiments')
+              .update({ sentiment: totalSentiment })
+              .eq('stock_id', stock.symbol)
+              .gte('created_at', startOfDay)
+              .lt('created_at', endOfDay)
+              .select();
 
           if (updateError) {
             console.error(`${stock.symbol} ${date} 업데이트 실패:`, updateError);
