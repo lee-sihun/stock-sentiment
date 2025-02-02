@@ -23,10 +23,18 @@ export async function verifyPastSentiments(): Promise<void> {
         const nextTradingDay = new Date(predictionDate);
         nextTradingDay.setDate(nextTradingDay.getDate() + 1);
 
+        const day1 = new Date(nextTradingDay);
+        const day2 = new Date(nextTradingDay);
+        day2.setDate(day2.getDate() + 1);
+
+        const period1Timestamp = Math.floor(day1.getTime() / 1000);
+        const period2Timestamp = Math.floor(day2.getTime() / 1000);
+
+
         // 해당 날짜의 주가 데이터 조회
         const quote = await yahooFinance.historical(sentiment.stock_id, {
-          period1: nextTradingDay.toISOString().split('T')[0], // 시작 날짜
-          period2: nextTradingDay.toISOString().split('T')[0], // 종료 날짜
+          period1: period1Timestamp,
+          period2: period2Timestamp,
           interval: '1d', // 일간 데이터
         })
         // @ts-expect-error 타입 에러
