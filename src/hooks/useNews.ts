@@ -2,7 +2,7 @@ import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 import { axiosInstance } from '@/lib/axios';
 import { NewsArticle } from '@/types/news';
 
-export function useRecentNews(
+export function useNews(
   symbol: string,
   options?: Partial<UseQueryOptions<NewsArticle[], Error>>
 ) {

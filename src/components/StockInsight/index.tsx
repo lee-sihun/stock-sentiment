@@ -1,16 +1,30 @@
+"use client";
+import { useNews } from "@/hooks/useNews";
+import { NewsArticle } from "@/types/news";
 import Smile from "@public/svgs/smile.svg";
 import Report from "@public/svgs/report.svg";
 
 export default function StockInsight({ symbol }: { symbol: string }) {
+  const { data, isLoading } = useNews(symbol);
+
   return (
     <section className="flex flex-col gap-[16px]">
-      <SentimentsChart />
-      <StockInfo />
+      <SentimentsChart data={data || []} />
+      <StockInfo data={data || []} />
     </section>
   );
 }
 
-function SentimentsChart() {
+function SentimentsChart({ data }: { data: NewsArticle[] }) {
+  const total = data.length;
+  const positiveCount = data.filter((item) => item.sentiment === 1).length;
+  const neutralCount = data.filter((item) => item.sentiment === 0).length;
+  const negativeCount = data.filter((item) => item.sentiment === -1).length;
+
+  const positiveRatio = total ? (positiveCount / total) * 100 : 0;
+  const neutralRatio = total ? (neutralCount / total) * 100 : 0;
+  const negativeRatio = total ? (negativeCount / total) * 100 : 0;
+
   return (
     <div className="flex flex-col w-[282px] justify-between gap-[10px] mt-[16px]">
       <span className="text-[12px] text-[#AAAFBE] leading-[14px]">
@@ -19,39 +33,54 @@ function SentimentsChart() {
       <div className="flex w-full items-center">
         <div
           className="bg-[#2FACA0] h-[8px] rounded-l-[18px]"
-          style={{ width: "70%" }}
+          style={{ width: `${positiveRatio}%` }}
         />
-        <div className="bg-white h-[8px]" style={{ width: "10%" }} />
+        <div
+          className="bg-white h-[8px]"
+          style={{ width: `${neutralRatio}%` }}
+        />
         <div
           className="bg-[#E85451] h-[8px] rounded-r-[18px]"
-          style={{ width: "20%" }}
+          style={{ width: `${negativeRatio}%` }}
         />
       </div>
       <div className="flex justify-between">
         <span className="text-[12px] text-[#AAAFBE] leading-[14px]">
-          <span className="text-[#2FACA0]">긍정 </span>
-          (70%)
+          <span className="text-[#2FACA0]">긍정</span>(
+          {positiveRatio.toFixed(0)}%)
         </span>
         <span className="text-[12px] text-[#AAAFBE] leading-[14px]">
-          <span className="text-white">중립 </span>
-          (10%)
+          <span className="text-white">중립</span>({neutralRatio.toFixed(0)}%)
         </span>
         <span className="text-[12px] text-[#AAAFBE] leading-[14px]">
-          <span className="text-[#E85451]">부정 </span>
-          (20%)
+          <span className="text-[#E85451]">부정</span>(
+          {negativeRatio.toFixed(0)}%)
         </span>
       </div>
     </div>
   );
 }
 
-function StockInfo() {
+function StockInfo({ data }: { data: NewsArticle[] }) {
+  const positiveCount = data.filter((item) => item.sentiment === 1).length;
+  const neutralCount = data.filter((item) => item.sentiment === 0).length;
+  const negativeCount = data.filter((item) => item.sentiment === -1).length;
+
+  const maxCount = Math.max(positiveCount, neutralCount, negativeCount);
+
+  const marketSentiment =
+    maxCount === positiveCount
+      ? "긍정적"
+      : maxCount === negativeCount
+      ? "부정적"
+      : "중립적";
+
   return (
     <div className="flex flex-col w-[282px] gap-[12px]">
       <span className="w-full h-[46px] bg-[#22222A] rounded-[8px] px-[18px] flex items-center text-[16px] text-[#AAAFBE] leading-[19px]">
         <Smile className="mr-[18px]" />
         현재 시장 반응이&nbsp;
-        <span className="text-white font-medium">긍정적</span>
+        <span className="text-white font-medium">{marketSentiment}</span>
         입니다.
       </span>
       <span className="w-full h-[46px] bg-[#22222A] rounded-[8px] px-[18px] flex items-center text-[16px] text-[#AAAFBE] leading-[19px]">
