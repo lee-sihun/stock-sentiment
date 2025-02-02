@@ -38,23 +38,28 @@ export async function verifyPastSentiments(): Promise<void> {
         const nextTradingDay = new Date(predictionDate);
         nextTradingDay.setDate(nextTradingDay.getDate() + 1);
 
-        const day1 = new Date(nextTradingDay);
-        const day2 = new Date(nextTradingDay);
-        day2.setDate(day2.getDate() + 1);
+        const targetDate = new Date(nextTradingDay);
+        const previousDate = new Date(nextTradingDay);
+        previousDate.setDate(previousDate.getDate() - 1);
 
-        const period1Timestamp = Math.floor(day1.getTime() / 1000);
-        const period2Timestamp = Math.floor(day2.getTime() / 1000);
+        const period1 = Math.floor(previousDate.getTime() / 1000);
+        const period2 = Math.floor(targetDate.getTime() / 1000) + 86400;
 
-
-        // 해당 날짜의 주가 데이터 조회
-        const quote = await yahooFinance.historical(sentiment.stock_id, {
-          period1: period1Timestamp,
-          period2: period2Timestamp,
-          interval: '1d', // 일간 데이터
+        const result = await yahooFinance.historical(sentiment.stock_id, {
+          period1: period1,
+          period2: period2,
+          interval: '1d', 
         })
-        console.log(quote);
-        // @ts-expect-error 타입 에러
-        const priceChangePercent = quote[0].regularMarketChangePercent;
+
+        const previousDayData = result[result.length - 2];
+        const targetDayData = result[result.length - 1];
+
+        // 전일 종가와 당일 종가
+        const previousClose = previousDayData.close;
+        const targetClose = targetDayData.close;
+
+        // regularMarketChangePercent 계산
+        const priceChangePercent = ((targetClose - previousClose) / previousClose) * 100;
 
         console.log(`[${sentiment.stock_id}] ${nextTradingDay.toISOString().split('T')[0]} 주가 변동률: ${priceChangePercent}%`);
 
