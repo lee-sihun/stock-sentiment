@@ -2,12 +2,14 @@
 // import { createStockNews } from '../src/services/createStockNews';
 // import { updateNewsSentiment } from '@/services/updateNewsSentiment';
 // import { updateTotalSentiment } from '@/services/updateTotalSentiment';
-import { verifySentiments } from '@/services/verifySentiments';
+// import { verifySentiments } from '@/services/verifySentiments';
+import { verifyPastSentiments } from '@services/verifyPastSentiments' 
 
 async function main() {
   try {
-    console.log('이전 감정 분석 검증 시작...');
-    await verifySentiments();
+    await verifyPastSentiments();
+    // console.log('이전 감정 분석 검증 시작...');
+    // await verifySentiments();
 
     // console.log('주식 순위 업데이트 시작...');
     // await updateStockRank();
