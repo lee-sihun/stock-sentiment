@@ -11,11 +11,14 @@ export default function StockNews({ symbol }: { symbol: string }) {
 
   if (isLoading) return <StockNewsSkeleton />;
 
-  const sortedNews = news?.sort(
-    (a, b) =>
-      // @ts-expect-error 타입 에러
-      new Date(b.published_at).getTime() - new Date(a.published_at).getTime()
-  );
+  const sortedNews = news
+    // @ts-expect-error 타입 에러
+    ?.filter((item) => !item.thumbnail_url?.includes("placeholder.com"))
+    ?.sort(
+      (a, b) =>
+        // @ts-expect-error 타입 에러
+        new Date(b.published_at).getTime() - new Date(a.published_at).getTime()
+    );
 
   return (
     <section className="flex flex-col gap-[83px] w-full mt-[32px]">
@@ -63,10 +66,7 @@ function NewsCard({ news }: { news: NewsArticle }) {
         <Image
           src={
             // @ts-expect-error 타입 에러
-            news.thumbnail_url?.includes("placeholder.com")
-              ? "/images/news.png"
-              : // @ts-expect-error 타입 에러
-                news.thumbnail_url || "/images/news.png"
+            news.thumbnail_url || "/images/news.png"
           }
           alt="thumbnail"
           width={282}
