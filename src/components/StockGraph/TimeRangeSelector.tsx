@@ -1,6 +1,3 @@
-"use client";
-import { useState } from "react";
-
 const timeRanges = [
   // { label: "3시간", value: "3h" },
   { label: "24시간", value: "24h" },
@@ -10,9 +7,13 @@ const timeRanges = [
   // { label: "1년", value: "1y" },
 ];
 
-export default function TimeRangeSelector() {
-  const [selected, setSelected] = useState("24h");
-
+export default function TimeRangeSelector({
+  selected,
+  setSelected,
+}: {
+  selected: string;
+  setSelected: (value: string) => void;
+}) {
   return (
     <div className="flex items-center bg-[#22222A] h-[40px] rounded-lg px-[5px]">
       {timeRanges.map((range) => (

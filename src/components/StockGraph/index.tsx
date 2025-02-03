@@ -1,29 +1,58 @@
 "use client";
+import { useState } from "react";
 import { useNews } from "@/hooks/useNews";
+import { useSentiments } from "@/hooks/useSentiments";
 import { format } from "date-fns";
 import Graph from "./Graph";
 import TimeRangeSelector from "./TimeRangeSelector";
 import StockGraphSkeleton from "./StockGraphSkeleton";
 
 export default function StockGraph({ symbol }: { symbol: string }) {
-  const { data: news, isLoading } = useNews(symbol);
+  const [selected, setSelected] = useState("24h");
+  const { data: news, isLoading: newsLoading } = useNews(symbol);
+  const { data: sentiments, isLoading: sentimentsLoading } =
+    useSentiments(symbol);
 
-  if (isLoading) return <StockGraphSkeleton />;
+  if (newsLoading || sentimentsLoading) return <StockGraphSkeleton />;
 
-  const graphData = news
-    ?.sort(
-      (a, b) =>
-        // @ts-expect-error 타입 에러
-        new Date(a.published_at).getTime() - new Date(b.published_at).getTime()
-    )
-    .map((item) => ({
-      name: format(
-        // @ts-expect-error 타입 에러
-        new Date(new Date(item.published_at).getTime() + 32400000),
-        "HH:mm"
-      ),
-      value: item.sentiment,
-    }));
+  const graphData =
+    selected === "24h"
+      ? news
+          ?.sort(
+            (a, b) =>
+              // @ts-expect-error 타입 에러
+              new Date(a.published_at).getTime() -
+              // @ts-expect-error 타입 에러
+              new Date(b.published_at).getTime()
+          )
+          .map((item) => ({
+            name: format(
+              // @ts-expect-error 타입 에러
+              new Date(new Date(item.published_at).getTime() + 32400000),
+              "HH:mm"
+            ),
+            value: item.sentiment,
+          }))
+      : sentiments
+          // @ts-expect-error 타입 에러
+          ?.filter((item) => item.is_accurate !== null)
+          .sort(
+            (a, b) =>
+              // @ts-expect-error 타입 에러
+              new Date(b.created_at).getTime() -
+              // @ts-expect-error 타입 에러
+              new Date(a.created_at).getTime()
+          )
+          .slice(0, 7)
+          .reverse()
+          .map((item) => ({
+            name: format(
+              // @ts-expect-error 타입 에러
+              new Date(new Date(item.created_at).getTime() + 32400000),
+              "MM/dd"
+            ),
+            value: item.sentiment,
+          }));
 
   const latestNews = news?.sort(
     (a, b) =>
@@ -48,7 +77,7 @@ export default function StockGraph({ symbol }: { symbol: string }) {
           최근 데이터가&nbsp;
           <span className="text-white">{latestDate}</span>에 갱신되었습니다.
         </span>
-        <TimeRangeSelector />
+        <TimeRangeSelector selected={selected} setSelected={setSelected} />
       </div>
       <Graph data={graphData || []} />
     </section>
