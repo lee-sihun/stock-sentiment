@@ -1,12 +1,21 @@
 "use client";
 import { useNews } from "@/hooks/useNews";
 import { NewsArticle } from "@/types/news";
-import { format } from "date-fns";
+import { getTimeAgo } from "@/utils/formatTime";
+import StockNewsSkeleton from "./StockNewsSkeleton";
 import Image from "next/image";
 import Arrow from "@public/svgs/angle-arrow.svg";
 
 export default function StockNews({ symbol }: { symbol: string }) {
   const { data: news, isLoading } = useNews(symbol);
+
+  if (isLoading) return <StockNewsSkeleton />;
+
+  const sortedNews = news?.sort(
+    (a, b) =>
+      // @ts-expect-error 타입 에러
+      new Date(b.published_at).getTime() - new Date(a.published_at).getTime()
+  );
 
   return (
     <section className="flex flex-col gap-[83px] w-full mt-[32px]">
@@ -25,7 +34,7 @@ export default function StockNews({ symbol }: { symbol: string }) {
         <div className="w-full h-[1px] bg-[#D9D9D9]/20" />
       </div>
       <div className="flex w-full overflow-x-auto whitespace-nowrap scrollbar-hide gap-[24px]">
-        {news?.map((item) => (
+        {sortedNews?.map((item) => (
           // @ts-expect-error 타입 에러
           <NewsCard key={item.id} news={item} />
         ))}
@@ -46,7 +55,10 @@ function NewsCard({ news }: { news: NewsArticle }) {
       : "bg-[#22222A]";
 
   return (
-    <article className="group flex flex-col w-[282px] gap-[20px] cursor-pointer">
+    <article
+      className="group flex flex-col w-[282px] gap-[20px] cursor-pointer"
+      onClick={() => window.open(news.link, "_blank")}
+    >
       <div className="w-[282px] h-[160px] overflow-hidden rounded-lg">
         <Image
           src={
@@ -73,7 +85,7 @@ function NewsCard({ news }: { news: NewsArticle }) {
           <span className="text-[16px] text-[#AAAFBE] leading-[19px]">
             {
               // @ts-expect-error 타입 에러
-              format(new Date(news.published_at), "H시간 전")
+              getTimeAgo(news.published_at)
             }
           </span>
           <span
