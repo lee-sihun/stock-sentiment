@@ -5,8 +5,11 @@ import { formatKRW, formatUSD } from "@/utils/formatNumber";
 import Info from "@public/svgs/info.svg";
 import Star from "@public/svgs/star.svg";
 import StockHeaderSkeleton from "./StockHeaderSkeleton";
+import { usePortfolioStore } from "@/stores/usePortfolioStore";
 
 export default function StockHeader({ symbol }: { symbol: string }) {
+  const { togglePortfolio, isInPortfolio } = usePortfolioStore();
+  const isBookmarked = isInPortfolio(symbol);
   const { data, isLoading } = useStocks();
 
   if (isLoading) return <StockHeaderSkeleton />;
@@ -46,8 +49,11 @@ export default function StockHeader({ symbol }: { symbol: string }) {
           <Info />
           상세 정보
         </button>
-        <button className="flex gap-[8px] items-center justify-center h-[38px] px-[16px] bg-[#22222A] rounded-[8px] text-[14px] font-medium leading-[17px]">
-          <Star fill={"white"} />
+        <button
+          onClick={() => togglePortfolio(symbol)}
+          className="flex gap-[8px] items-center justify-center h-[38px] px-[16px] bg-[#22222A] rounded-[8px] text-[14px] font-medium leading-[17px]"
+        >
+          <Star fill={isBookmarked ? "#FFD900" : "white"} />
           포트폴리오
         </button>
       </div>

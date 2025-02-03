@@ -1,11 +1,11 @@
 "use client";
-import { useState } from "react";
 import Star from "@public/svgs/star.svg";
 import Arrow from "@public/svgs/arrow.svg";
 import StockListItem from "./StockListItem";
 import { useStocks } from "@/hooks/useStocks";
 import { STOCK_COUNT } from "@/config/constants";
 import StockListItemSkeleton from "./StockListItemSkeleton";
+import { usePortfolioStore } from "@/stores/usePortfolioStore";
 
 export default function StockList() {
   return (
@@ -44,20 +44,21 @@ export default function StockList() {
 }
 
 function PortfolioToggle() {
-  const [active, setActive] = useState(false);
+  const { isPortfolioMode, setPortfolioMode } = usePortfolioStore();
 
   return (
     <button
       className="flex items-center gap-[8px] h-[38px] bg-[#22222A] px-[16px] rounded-lg text-white text-[14px] font-medium"
-      onClick={() => setActive(!active)}
+      onClick={() => setPortfolioMode(!isPortfolioMode)}
     >
-      <Star fill={active ? "#FFD900" : "white"} />
+      <Star fill={isPortfolioMode ? "#FFD900" : "white"} />
       포트폴리오
     </button>
   );
 }
 
 function ItemsContainer() {
+  const { isPortfolioMode, portfolioSymbols } = usePortfolioStore();
   const { data, isLoading } = useStocks();
 
   if (isLoading)
@@ -69,13 +70,19 @@ function ItemsContainer() {
       </div>
     );
 
-  const stocks = [...(data || [])]
+  let filteredStocks = [...(data || [])]
     .sort((a, b) => a.rank - b.rank)
     .slice(0, STOCK_COUNT.STOCK_COUNT - 1);
 
+  if (isPortfolioMode) {
+    filteredStocks = filteredStocks.filter((stock) =>
+      portfolioSymbols.includes(stock.symbol)
+    );
+  }
+
   return (
     <div className="flex flex-col w-full gap-[12px]">
-      {stocks?.map((stock) => (
+      {filteredStocks.map((stock) => (
         <StockListItem key={stock.rank} stock={stock} />
       ))}
     </div>

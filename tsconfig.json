@@ -31,10 +31,18 @@
       "@lib/*": ["./src/lib/*"],
       "@providers/*": ["./src/providers/*"],
       "@services/*": ["./src/services/*"],
+      "@stores/*": ["./src/stores/*"],
       "@styles/*": ["./src/styles/*"],
-      "@types/*": ["./src/types/*"],
+      "@types/*": ["./src/types/*"]
     }
   },
-  "include": ["svgr.d.ts", "next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "scripts/**/*.ts"],
+  "include": [
+    "svgr.d.ts",
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "scripts/**/*.ts"
+  ],
   "exclude": ["node_modules"]
 }
