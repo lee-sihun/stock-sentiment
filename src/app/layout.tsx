@@ -2,6 +2,7 @@ import localFont from "next/font/local";
 import "@styles/globals.css";
 import ReactQueryProvider from "@/providers/ReactQueryProvider";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 const pretendard = localFont({
   src: "../../public/fonts/PretendardVariable.woff2",
@@ -20,6 +21,7 @@ export default function RootLayout({
         <ReactQueryProvider>
           <Header />
           <main>{children}</main>
+          <Footer />
         </ReactQueryProvider>
       </body>
     </html>
