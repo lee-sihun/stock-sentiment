@@ -2,6 +2,7 @@ import Layout from "@/components/Layout";
 import StockGraph from "@/components/StockGraph";
 import StockHeader from "@/components/StockHeader";
 import StockInsight from "@/components/StockInsight";
+import StockNews from "@/components/StockNews";
 
 type Params = Promise<{ symbol: string }>;
 
@@ -15,6 +16,7 @@ export default async function Page({ params }: { params: Params }) {
         <StockInsight symbol={symbol} />
         <StockGraph symbol={symbol} />
       </div>
+      <StockNews symbol={symbol} />
     </Layout>
   );
 }
