@@ -3,9 +3,12 @@ import { useNews } from "@/hooks/useNews";
 import { format } from "date-fns";
 import Graph from "./Graph";
 import TimeRangeSelector from "./TimeRangeSelector";
+import StockGraphSkeleton from "./StockGraphSkeleton";
 
 export default function StockGraph({ symbol }: { symbol: string }) {
-  const { data: news } = useNews(symbol);
+  const { data: news, isLoading } = useNews(symbol);
+
+  if (isLoading) return <StockGraphSkeleton />;
 
   const graphData = news
     ?.sort(
