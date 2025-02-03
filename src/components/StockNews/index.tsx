@@ -1,4 +1,6 @@
 "use client";
+import { useRef } from "react";
+import { useScroll } from "@/hooks/useScroll";
 import { useNews } from "@/hooks/useNews";
 import { NewsArticle } from "@/types/news";
 import { getTimeAgo } from "@/utils/formatTime";
@@ -7,6 +9,8 @@ import Image from "next/image";
 import Arrow from "@public/svgs/angle-arrow.svg";
 
 export default function StockNews({ symbol }: { symbol: string }) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const { smoothScroll } = useScroll();
   const { data: news, isLoading } = useNews(symbol);
 
   if (isLoading) return <StockNewsSkeleton />;
@@ -27,16 +31,25 @@ export default function StockNews({ symbol }: { symbol: string }) {
           관련 뉴스
         </span>
         <div className="flex gap-[8px]">
-          <button className="flex items-center justify-center w-[35px] h-[35px] rounded-[19px] bg-[#22222A] border border-[rgba(255,255,255,0.2)]">
+          <button
+            onClick={() => smoothScroll(scrollRef.current, "left")}
+            className="flex items-center justify-center w-[35px] h-[35px] rounded-[19px] bg-[#22222A] border border-[rgba(255,255,255,0.2)]"
+          >
             <Arrow fill={"white"} className="transform rotate-180" />
           </button>
-          <button className="flex items-center justify-center w-[35px] h-[35px] rounded-[19px] bg-[#22222A] border border-[rgba(255,255,255,0.2)]">
+          <button
+            onClick={() => smoothScroll(scrollRef.current, "right")}
+            className="flex items-center justify-center w-[35px] h-[35px] rounded-[19px] bg-[#22222A] border border-[rgba(255,255,255,0.2)]"
+          >
             <Arrow fill={"white"} />
           </button>
         </div>
         <div className="w-full h-[1px] bg-[#D9D9D9]/20" />
       </div>
-      <div className="flex w-full overflow-x-auto whitespace-nowrap scrollbar-hide gap-[24px]">
+      <div
+        ref={scrollRef}
+        className="flex w-full overflow-x-auto whitespace-nowrap scrollbar-hide gap-[24px]"
+      >
         {sortedNews?.map((item) => (
           // @ts-expect-error 타입 에러
           <NewsCard key={item.id} news={item} />
