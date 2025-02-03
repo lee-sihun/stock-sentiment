@@ -1,7 +1,7 @@
 "use client";
 import {
   XAxis,
-  // YAxis,
+  YAxis,
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
@@ -55,11 +55,30 @@ export default function Graph({ data }: { data: GraphData[] }) {
             opacity: 1,
           }}
         />
-        {/* <YAxis domain={[-2, 2]} hide /> */}
+        <YAxis domain={[-1, 1]} hide />
         <Tooltip
           cursor={{
             stroke: "#4A4D56",
             strokeDasharray: "4 2",
+          }}
+          content={({ payload }) => {
+            if (!payload || !payload[0]) return null;
+            const value = payload[0].value;
+
+            const sentiment =
+              value === 1
+                ? { text: "긍정", color: "#2FACA0" }
+                : value === -1
+                ? { text: "부정", color: "#E85451" }
+                : { text: "중립", color: "#FFFFFF" };
+
+            return (
+              <div className="flex items-center px-3 py-1 bg-[#22222A] rounded-lg">
+                <span style={{ color: sentiment.color }} className="text-[12px] font-semibold">
+                  {sentiment.text}
+                </span>
+              </div>
+            );
           }}
         />
         <Area
