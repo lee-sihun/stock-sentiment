@@ -80,7 +80,7 @@ export default function SearchBar() {
         placeholder="검색"
       />
       {isOpen && filteredStocks && filteredStocks.length > 0 && (
-        <ul className="absolute top-full left-0 right-0 bg-[#22222A] rounded-b-lg overflow-hidden border-t border-[#5C5F74] px-[4px] py-[4px]">
+        <ul className="z-10 absolute top-full left-0 right-0 bg-[#22222A] rounded-b-lg overflow-hidden border-t border-[#5C5F74] px-[4px] py-[4px]">
           {filteredStocks.map((stock, index) => (
             <li
               key={stock.symbol}
