@@ -13,11 +13,13 @@ export default function StockList() {
   const { isPortfolioMode } = usePortfolioStore();
 
   return (
-    <section className="mt-[68px]">
+    <section className="mt-[68px] max-[1248px]:mt-[74px]">
       <div className="flex justify-between items-end">
         <div className="flex flex-col">
-          <h3 className="text-white text-[32px] font-bold">분석 중인 종목</h3>
-          <p className="text-white text-[16px] font-medium">
+          <h3 className="text-white text-[32px] max-[1248px]:text-[24px] font-bold">
+            분석 중인 종목
+          </h3>
+          <p className="text-white text-[16px] max-[1248px]:text-[14px] font-medium">
             {isPortfolioMode
               ? "내가 주목하고 있는 핵심 종목"
               : "현재 시장에서 주목할 만한 핵심 종목"}
@@ -27,19 +29,19 @@ export default function StockList() {
       </div>
       <ul className="flex flex-col w-full text-white text-[15px] font-semibold">
         <div className="flex w-full h-[42px] mt-[22px] border-t border-[#D9D9D9]/20">
-          <div className="h-full flex-1 shrink basis-[78px] flex items-center justify-center">
+          <div className="h-full flex-1 shrink basis-[78px] flex items-center justify-center max-[1248px]:hidden">
             <Arrow />
           </div>
           <div className="h-full flex-1 shrink basis-[507px] flex items-center pl-[24px]">
             종목
           </div>
-          <div className="h-full flex-1 shrink basis-[139px] flex items-center justify-end">
+          <div className="h-full flex-1 shrink basis-[139px] flex items-center justify-end max-[1248px]:mr-[24px]">
             현재 주가
           </div>
-          <div className="h-full flex-1 shrink basis-[248px] flex items-center justify-end">
+          <div className="h-full flex-1 shrink basis-[248px] flex items-center justify-end max-[1248px]:hidden">
             정규시장 거래대금
           </div>
-          <div className="h-full flex-1 shrink basis-[228px] flex items-center justify-end pr-[28px]">
+          <div className="h-full flex-1 shrink basis-[228px] flex items-center justify-end pr-[28px] max-[1248px]:hidden">
             시가총액
           </div>
         </div>
@@ -58,7 +60,7 @@ function PortfolioToggle() {
       onClick={() => setPortfolioMode(!isPortfolioMode)}
     >
       <Star fill={isPortfolioMode ? "#FFD900" : "white"} />
-      포트폴리오
+      <span className="max-[1248px]:hidden">포트폴리오</span>
     </button>
   );
 }
