@@ -111,6 +111,11 @@ function ItemsContainer() {
           ))}
         </div>
       )}
+      {!hasNextPage && !isPortfolioMode && (
+        <div className="text-center text-white text-[16px] font-medium mt-4 mb-[-18px]">
+          마지막 페이지입니다.
+        </div>
+      )}
       <div ref={ref} />
     </div>
   );
