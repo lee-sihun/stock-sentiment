@@ -10,13 +10,17 @@ import StockListItemSkeleton from "./StockListItemSkeleton";
 import { usePortfolioStore } from "@/stores/usePortfolioStore";
 
 export default function StockList() {
+  const { isPortfolioMode } = usePortfolioStore();
+
   return (
     <section className="mt-[68px]">
       <div className="flex justify-between items-end">
         <div className="flex flex-col">
           <h3 className="text-white text-[32px] font-bold">분석 중인 종목</h3>
           <p className="text-white text-[16px] font-medium">
-            현재 시장에서 주목할 만한 핵심 종목
+            {isPortfolioMode
+              ? "내가 주목하고 있는 핵심 종목"
+              : "현재 시장에서 주목할 만한 핵심 종목"}
           </p>
         </div>
         <PortfolioToggle />
@@ -61,7 +65,8 @@ function PortfolioToggle() {
 
 function ItemsContainer() {
   const { ref, inView } = useInView();
-  const { data, fetchNextPage, hasNextPage, isLoading, isFetchingNextPage } = useInfiniteStocks();
+  const { data, fetchNextPage, hasNextPage, isLoading, isFetchingNextPage } =
+    useInfiniteStocks();
   const { isPortfolioMode, portfolioSymbols } = usePortfolioStore();
 
   useEffect(() => {
