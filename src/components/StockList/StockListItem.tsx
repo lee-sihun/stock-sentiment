@@ -4,14 +4,15 @@ import Link from "next/link";
 
 interface StockListItemProps {
   stock: Stock;
+  index: number;
 }
 
-export default function StockListItem({ stock }: StockListItemProps) {
+export default function StockListItem({ stock, index }: StockListItemProps) {
   return (
     <Link href={`/stocks/${stock.symbol}`}>
       <li className="flex w-full h-[63px] bg-[#22222A] rounded-lg text-[16px] text-[#AAAFBE] font-normal cursor-pointer">
         <div className="h-full flex-1 shrink basis-[78px] flex items-center justify-center text-white max-[1248px]:hidden">
-          #{stock.rank}
+          #{index+1}
         </div>
         <div className="h-full flex-1 shrink basis-[507px] flex items-center gap-[6px] pl-[24px] max-[1248px]:basis-auto max-[1248px]:max-w-[220px]">
           <span className="max-[1248px]:truncate max-[1248px]:whitespace-nowrap">

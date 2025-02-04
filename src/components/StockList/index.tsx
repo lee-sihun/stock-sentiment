@@ -101,8 +101,8 @@ function ItemsContainer() {
 
   return (
     <div className="flex flex-col w-full gap-[12px]">
-      {filteredStocks.map((stock) => (
-        <StockListItem key={stock.rank} stock={stock} />
+      {filteredStocks.map((stock, index) => (
+        <StockListItem key={stock.rank} stock={stock} index={index} />
       ))}
       {isFetchingNextPage && (
         <div className="flex flex-col gap-[12px]">
