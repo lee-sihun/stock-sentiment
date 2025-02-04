@@ -28,15 +28,15 @@ export default function MarketInsight() {
     : ["#E12AB0", "#E42961"];
 
   return (
-    <section className="w-full flex flex-col items-center justify-center gap-[28px] mt-[73px]">
-      <h2 className="text-[56px] font-bold text-white text-center leading-[67px]">
+    <section className="w-full flex flex-col items-center justify-center gap-[28px] max-[1248px]:gap-[21px] mt-[73px] max-[1248px]:mt-[94px]">
+      <h2 className="text-[56px] max-[1248px]:text-[36px] font-bold text-white text-center leading-[67px] max-[1248px]:leading-[43px]">
         현재 시장은{" "}
         <span
           style={{
             background: `-webkit-linear-gradient(left, ${gradientColor[0]}, ${gradientColor[1]})`,
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
-            color: gradientColor[0], 
+            color: gradientColor[0],
           }}
           className={`
             bg-gradient-to-r ${gradient} 
@@ -51,7 +51,7 @@ export default function MarketInsight() {
         <br />
         {isPositive ? "상승세" : "하향세"}를 보이고 있습니다
       </h2>
-      <p className="text-[20px] font-semibold text-[#AAAFBE] text-center">
+      <p className="text-[20px] max-[1248px]:text-[16px] font-semibold text-[#AAAFBE] text-center leading-[24px] max-[1248px]:leading-[19px]">
         뉴스 기반으로 시장 감정을 분석하여
         <br /> 투자 인사이트를 제공합니다
       </p>

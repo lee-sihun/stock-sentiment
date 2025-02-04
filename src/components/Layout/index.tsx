@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode } from "react";
 
 interface LayoutProps {
   children: ReactNode;
@@ -7,9 +7,7 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
   return (
     <section className="w-full flex justify-center">
-      <div className="flex flex-col w-[1200px]">
-        {children}
-      </div>
+      <div className="flex flex-col w-[1248px] px-[24px]">{children}</div>
     </section>
   );
 }

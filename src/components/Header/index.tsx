@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function Header() {
   return (
     <header className="bg-[rgba(0,0,1,0.35)] border-b border-[rgba(255,255,255,0.2)] min-h-[60px] flex justify-center w-full">
-      <div className="flex items-center justify-between h-full w-[1200px]">
+      <div className="flex items-center justify-between h-full w-[1248px] px-[24px]">
         <Logo />
         <SearchBar />
       </div>
