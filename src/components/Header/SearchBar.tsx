@@ -35,11 +35,13 @@ export default function SearchBar() {
       case "Enter":
         if (selectedIndex >= 0) {
           router.push(`/stocks/${filteredStocks[selectedIndex].symbol}`);
-          setIsOpen(false);
-          setSearchTerm("");
-          setSelectedIndex(-1);
-          inputRef.current?.blur();
+        } else if (filteredStocks[0]) {
+          router.push(`/stocks/${filteredStocks[0].symbol}`);
         }
+        setIsOpen(false);
+        setSearchTerm("");
+        setSelectedIndex(-1);
+        inputRef.current?.blur();
         break;
       case "Escape":
         setIsOpen(false);
