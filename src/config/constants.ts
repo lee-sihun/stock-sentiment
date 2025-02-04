@@ -1,6 +1,6 @@
 // 시가총액 상위 종목 개수
 export const MARKET = {
-  TOP_STOCKS_COUNT: 20,
+  TOP_STOCKS_COUNT: 50,
 } as const;
 
 // 뉴스 개수
