@@ -29,7 +29,7 @@ export default function MarketInsight() {
 
   return (
     <section className="w-full flex flex-col items-center justify-center gap-[28px] max-[1248px]:gap-[21px] mt-[73px] max-[1248px]:mt-[94px]">
-      <h2 className="text-[56px] max-[1248px]:text-[36px] font-bold text-white text-center leading-[67px] max-[1248px]:leading-[43px]">
+      <h2 className="text-[56px] max-[1248px]:text-[36px] max-[400px]:text-[32px] font-bold text-white text-center leading-[67px] max-[1248px]:leading-[43px]">
         현재 시장은{" "}
         <span
           style={{

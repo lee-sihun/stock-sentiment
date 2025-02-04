@@ -11,7 +11,7 @@ export default function MarketInsightSkeleton() {
           highlightColor="#444"
         />
         <Skeleton
-          className="!w-[600px] h-[67px] max-[1248px]:!w-[400px] max-[1248px]:h-[43px]"
+          className="!w-[600px] h-[67px] max-[1248px]:!w-[320px] max-[1248px]:h-[43px]"
           baseColor="#202020"
           highlightColor="#444"
         />
