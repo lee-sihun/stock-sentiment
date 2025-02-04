@@ -1,8 +1,10 @@
 "use client";
+import { useEffect } from "react";
 import Star from "@public/svgs/star.svg";
 import Arrow from "@public/svgs/arrow.svg";
 import StockListItem from "./StockListItem";
-import { useStocks } from "@/hooks/useStocks";
+import { useInfiniteStocks } from "@/hooks/useInfiniteStocks";
+import { useInView } from "react-intersection-observer";
 import { STOCK_COUNT } from "@/config/constants";
 import StockListItemSkeleton from "./StockListItemSkeleton";
 import { usePortfolioStore } from "@/stores/usePortfolioStore";
@@ -58,8 +60,15 @@ function PortfolioToggle() {
 }
 
 function ItemsContainer() {
+  const { ref, inView } = useInView();
+  const { data, fetchNextPage, hasNextPage, isLoading, isFetchingNextPage } = useInfiniteStocks();
   const { isPortfolioMode, portfolioSymbols } = usePortfolioStore();
-  const { data, isLoading } = useStocks();
+
+  useEffect(() => {
+    if (inView && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, hasNextPage, fetchNextPage]);
 
   if (isLoading)
     return (
@@ -70,9 +79,12 @@ function ItemsContainer() {
       </div>
     );
 
-  let filteredStocks = [...(data || [])]
-    .sort((a, b) => a.rank - b.rank)
-    .slice(0, STOCK_COUNT.STOCK_COUNT - 1);
+  const stocks = data?.pages.flatMap((page) => page) ?? [];
+  let filteredStocks = [...stocks].sort((a, b) => a.rank - b.rank);
+
+  // let filteredStocks = [...(data || [])]
+  //   .sort((a, b) => a.rank - b.rank)
+  //   .slice(0, STOCK_COUNT.STOCK_COUNT - 1);
 
   if (isPortfolioMode) {
     filteredStocks = filteredStocks.filter((stock) =>
@@ -85,6 +97,14 @@ function ItemsContainer() {
       {filteredStocks.map((stock) => (
         <StockListItem key={stock.rank} stock={stock} />
       ))}
+      {isFetchingNextPage && (
+        <div className="flex flex-col gap-[12px]">
+          {Array.from({ length: STOCK_COUNT.STOCK_COUNT }).map((_, index) => (
+            <StockListItemSkeleton key={`skeleton-${index}`} />
+          ))}
+        </div>
+      )}
+      <div ref={ref} />
     </div>
   );
 }

@@ -19,9 +19,9 @@ export const AI = {
   MODEL: 'deepseek/deepseek-chat',
 } as const;
 
-// 보여줄 종목 개수 
+// 한번에 보여줄 종목 개수 
 export const STOCK_COUNT = {
-  STOCK_COUNT: 15,
+  STOCK_COUNT: 10,
 } as const;
 
 // 환율
