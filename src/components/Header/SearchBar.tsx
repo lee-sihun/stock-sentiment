@@ -13,8 +13,10 @@ export default function SearchBar() {
   const { data: stocks } = useStocks();
 
   const filteredStocks = stocks
-    ?.filter((stock) =>
-      stock.name.toLowerCase().includes(searchTerm.toLowerCase())
+    ?.filter(
+      (stock) =>
+        stock.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        stock.symbol.toLowerCase().includes(searchTerm.toLowerCase())
     )
     .slice(0, 5);
 
