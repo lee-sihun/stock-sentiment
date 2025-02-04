@@ -1,4 +1,16 @@
 export const useScroll = () => {
+  const checkScrollable = (element: HTMLDivElement | null) => {
+    if (!element) return { canScrollLeft: false, canScrollRight: false };
+    
+    const hasScroll = element.scrollWidth > element.clientWidth;
+    if (!hasScroll) return { canScrollLeft: false, canScrollRight: false };
+  
+    return {
+      canScrollLeft: element.scrollLeft > 0,
+      canScrollRight: element.scrollLeft < (element.scrollWidth - element.clientWidth - 1)
+    };
+  };
+
   const smoothScroll = (
     element: HTMLDivElement | null,
     direction: 'left' | 'right'
@@ -46,5 +58,5 @@ export const useScroll = () => {
     requestAnimationFrame(animate);
   };
 
-  return { smoothScroll };
+  return { smoothScroll, checkScrollable };
 };

@@ -1,5 +1,5 @@
 "use client";
-import { useRef } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import { useScroll } from "@/hooks/useScroll";
 import { useNews } from "@/hooks/useNews";
 import { NewsArticle } from "@/types/news";
@@ -10,8 +10,39 @@ import Arrow from "@public/svgs/angle-arrow.svg";
 
 export default function StockNews({ symbol }: { symbol: string }) {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const { smoothScroll } = useScroll();
+  const { smoothScroll, checkScrollable } = useScroll();
+  const [scrollState, setScrollState] = useState({
+    canScrollLeft: false,
+    canScrollRight: false,
+  });
   const { data: news, isLoading } = useNews(symbol);
+
+  const handleScroll = useCallback(() => {
+    if (scrollRef.current) {
+      const newState = checkScrollable(scrollRef.current);
+      setScrollState((prev) =>
+        prev.canScrollLeft === newState.canScrollLeft &&
+        prev.canScrollRight === newState.canScrollRight
+          ? prev
+          : newState
+      );
+    }
+  }, [checkScrollable]);
+
+  useEffect(() => {
+    const element = scrollRef.current;
+    if (element) {
+      element.addEventListener("scroll", handleScroll);
+      const observer = new ResizeObserver(handleScroll);
+      observer.observe(element);
+      handleScroll();
+
+      return () => {
+        element.removeEventListener("scroll", handleScroll);
+        observer.disconnect();
+      };
+    }
+  }, [handleScroll]);
 
   if (isLoading) return <StockNewsSkeleton />;
 
@@ -33,15 +64,25 @@ export default function StockNews({ symbol }: { symbol: string }) {
         <div className="flex gap-[8px]">
           <button
             onClick={() => smoothScroll(scrollRef.current, "left")}
-            className="flex items-center justify-center w-[35px] h-[35px] rounded-[19px] bg-[#22222A] border border-[rgba(255,255,255,0.2)]"
+            disabled={!scrollState.canScrollLeft}
+            className="flex items-center justify-center w-[35px] h-[35px] rounded-[19px] bg-[#22222A] border border-[rgba(255,255,255,0.2)] disabled:cursor-not-allowed"
           >
-            <Arrow fill={"white"} className="transform rotate-180" />
+            <Arrow
+              fill="white"
+              className={`transform rotate-180 ${
+                !scrollState.canScrollLeft ? "opacity-20" : ""
+              }`}
+            />
           </button>
           <button
             onClick={() => smoothScroll(scrollRef.current, "right")}
-            className="flex items-center justify-center w-[35px] h-[35px] rounded-[19px] bg-[#22222A] border border-[rgba(255,255,255,0.2)]"
+            disabled={!scrollState.canScrollRight}
+            className="flex items-center justify-center w-[35px] h-[35px] rounded-[19px] bg-[#22222A] border border-[rgba(255,255,255,0.2)] disabled:cursor-not-allowed"
           >
-            <Arrow fill={"white"} />
+            <Arrow
+              fill="white"
+              className={!scrollState.canScrollRight ? "opacity-20" : ""}
+            />
           </button>
         </div>
         <div className="w-full h-[1px] bg-[#D9D9D9]/20" />
