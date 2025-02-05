@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📊 DeepEye
+[🔗 서비스 바로가기](https://deepeye.pro)
+주식의 뉴스 기사를 LLM으로 감정 분석하여 제공하는 실시간 주식 모니터링 서비스입니다.
 
-## Getting Started
+## 📌 프로젝트 소개
 
-First, run the development server:
+DeepEye는 주요 기업들의 실시간 주가 정보와 함께, LLM을 활용한 뉴스 기사 감정 분석 결과를 제공합니다. 투자자들이 보다 객관적이고 정확한 시장 동향을 파악할 수 있도록 돕습니다.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### 주요 기능
+- **실시간 주가 모니터링**: Yahoo Finance API를 통한 실시간 주가 데이터 제공
+- **LLM 기반 뉴스 분석**: DeepSeek/chat 모델을 활용한 뉴스 기사 감정 분석
+- **포트폴리오 관리**: LocalStorage를 활용한 관심 종목 관리
+- **종목 검색**: 자동완성이 지원되는 검색 기능
+- **상세 정보 제공**: 개별 종목의 상세 정보와 분석 결과 제공
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠 기술 스택
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Frontend
+- **Framework**: Next.js 15 (App Router)
+- **Language**: TypeScript
+- **State Management**: 
+  - Zustand (클라이언트 상태)
+  - React Query (서버 상태)
+- **Styling**: Tailwind CSS
+- **Charts**: Recharts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Backend
+- **Architecture**: Serverless Architecture (Vercel)
+- **API**: Next.js 15 Route Handlers
+- **Database**: Supabase (PostgreSQL)
+- **AI/ML**: 
+  - OpenRouter(OpenAI 호환) API
+  - deepseek/deepseek-chat 모델 사용
+- **CI/CD & Deploy**: Vercel
+- **Scheduling**: GitHub Actions (Cron Jobs)
 
-## Learn More
+## 🌟 주요 특징
 
-To learn more about Next.js, take a look at the following resources:
+### 최적화된 사용자 경험
+- **반응형 디자인**: 모바일, PC에서 최적화된 UI/UX 제공
+- **성능 최적화**: 
+  - 무한 스크롤 (React Query Infinite Query)
+  - 스켈레톤 로딩 UI
+  - 데이터 캐싱 전략
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 데이터 처리
+- Yahoo Finance API를 통한 실시간 주가 데이터 업데이트
+- GitHub Actions를 활용한 정기적인 뉴스 수집 및 감정 분석 (매일 22:00(KST)마다 수행)
+- 서버리스 아키텍처를 통한 확장성 있는 데이터 처리
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### AI/ML 통합
+- LLM을 활용한 뉴스 기사 헤드라인 감정 분석
+- 분석 결과 시각화
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🔄 향후 개선 계획
+- 유사한 내용의 기사 필터링, 추론 LLM 모델 도입으로 분석 정확도 개선 
+- Cron Jobs 주기를 줄여 최신 데이터를 제공할 수 있도록 개선 
+- 종목별 토론창(댓글 기능) 구현 
+- 라이트 모드 지원 
