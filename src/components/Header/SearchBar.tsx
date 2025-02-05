@@ -1,7 +1,7 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useStocks } from "@/hooks/useStocks";
+import { useStocksList } from "@/hooks/useStocksList";
 import Search from "@public/svgs/search.svg";
 
 export default function SearchBar() {
@@ -10,7 +10,7 @@ export default function SearchBar() {
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(-1);
-  const { data: stocks } = useStocks();
+  const { data: stocks } = useStocksList();
 
   const filteredStocks = stocks
     ?.filter(

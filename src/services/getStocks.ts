@@ -113,3 +113,39 @@ export async function getStocksByPage(pageParam: number = 0): Promise<Stock[]> {
     throw error;
   }
 }
+
+export async function getStocksList(): Promise<Stock[]> {
+  try {
+    const { data, error } = await supabase
+      .from('stocks')
+      .select('*')
+      .order('rank', { ascending: true });
+
+    if (error) throw error;
+
+    const enrichedStocks = await Promise.all(
+      data.map(async (stock) => {
+        try {
+          return {
+            rank: stock.rank,
+            symbol: stock.symbol,
+            name: stock.name,
+          };
+        } catch (error) {
+          console.error(`Failed to fetch data for ${stock.symbol}:`, error);
+          // 에러 발생시 기본 데이터만 반환
+          return {
+            rank: stock.rank,
+            symbol: stock.symbol,
+            name: stock.name,
+          };
+        }
+      })
+    );
+
+    return enrichedStocks;
+  } catch (error) {
+    console.error('주식 데이터 조회 실패:', error);
+    throw error;
+  }
+}
