@@ -15,12 +15,12 @@ export default function TimeRangeSelector({
   setSelected: (value: string) => void;
 }) {
   return (
-    <div className="flex items-center bg-[#22222A] h-[40px] rounded-lg px-[5px]">
+    <div className="flex items-center bg-[#22222A] h-[40px] rounded-lg px-[5px] max-[1248px]:w-full">
       {timeRanges.map((range) => (
         <button
           key={range.value}
           onClick={() => setSelected(range.value)}
-          className={`flex items-center justify-center px-[12px] h-[30px] rounded-md transition text-[14px] font-semibold ${
+          className={`flex items-center justify-center px-[12px] h-[30px] rounded-md transition text-[14px] font-semibold max-[1248px]:w-full ${
             selected === range.value
               ? "bg-[#0F0F11] text-white"
               : "text-[#AAAFBE] hover:text-white"

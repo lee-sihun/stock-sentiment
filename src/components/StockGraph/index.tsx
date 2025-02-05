@@ -71,9 +71,9 @@ export default function StockGraph({ symbol }: { symbol: string }) {
     : "날짜 없음";
 
   return (
-    <section className="mt-[24px] flex flex-col w-full gap-[14px]">
-      <div className="flex justify-between items-center">
-        <span className="flex items-center justify-center w-[409px] h-[40px] bg-[#22222A] rounded-[8px] text-[#AAAFBE] text-[14px] font-semibold">
+    <section className="mt-[24px] max-[1248px]:mt-[12px] flex flex-col max-[1248px]:flex-col-reverse w-full gap-[14px] max-[1248px]:gap-[24px]">
+      <div className="flex justify-between items-center max-[1248px]:flex-col-reverse max-[1248px]:gap-[14px]">
+        <span className="flex items-center justify-center w-[409px] max-[1248px]:w-full h-[40px] bg-[#22222A] rounded-[8px] text-[#AAAFBE] text-[14px] max-[1248px]:text-[12px] font-semibold">
           최근 데이터가&nbsp;
           <span className="text-white">{latestDate}</span>에 갱신되었습니다.
         </span>
