@@ -1,8 +1,10 @@
 "use client";
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 export default function Background() {
   const [windowWidth, setWindowWidth] = useState(0);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleResize = () => {
@@ -12,6 +14,8 @@ export default function Background() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  if (pathname !== "/") return null;
 
   return (
     <div className="fixed inset-0 z-[1]">
@@ -25,7 +29,7 @@ export default function Background() {
           transform: "translate(-50%, -50%) rotate(4deg)",
           background:
             "linear-gradient(180deg, rgba(27,48,153,0.75) 0%, rgba(27,61,153,0) 100%)",
-          opacity: 0.2,
+          opacity: 0.1,
           borderRadius: "50%",
           filter: "blur(200px)",
         }}
@@ -40,7 +44,7 @@ export default function Background() {
           transform: "translate(-50%, -50%) rotate(4deg)",
           background:
             "linear-gradient(180deg, rgba(27,48,153,0.75) 0%, rgba(27,61,153,0) 100%)",
-          opacity: 0.4,
+          opacity: 0.2,
           borderRadius: "50%",
           filter: "blur(200px)",
         }}
