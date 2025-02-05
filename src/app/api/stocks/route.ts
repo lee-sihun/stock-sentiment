@@ -1,14 +1,12 @@
 import { NextResponse } from 'next/server';
-import { getStocks, getStocksByPage } from '@/services/getStocks';
+import { getStocksByPage } from '@/services/getStocks';
 
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
     const page = searchParams.get('page');
 
-    const stocks = page !== null 
-      ? await getStocksByPage(Number(page))
-      : await getStocks();
+    const stocks = await getStocksByPage(Number(page))
 
     return NextResponse.json(stocks);
   } catch (error) {

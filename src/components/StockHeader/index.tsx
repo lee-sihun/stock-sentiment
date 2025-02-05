@@ -1,6 +1,5 @@
 "use client";
 import { useStocks } from "@/hooks/useStocks";
-import { Stock } from "@/types/stock";
 import { formatKRW, formatUSD } from "@/utils/formatNumber";
 import Info from "@public/svgs/info.svg";
 import Star from "@public/svgs/star.svg";
@@ -10,11 +9,9 @@ import { usePortfolioStore } from "@/stores/usePortfolioStore";
 export default function StockHeader({ symbol }: { symbol: string }) {
   const { togglePortfolio, isInPortfolio } = usePortfolioStore();
   const isBookmarked = isInPortfolio(symbol);
-  const { data, isLoading } = useStocks();
+  const { data: stock, isLoading } = useStocks(symbol);
 
   if (isLoading) return <StockHeaderSkeleton />;
-
-  const stock = data?.find((stock: Stock) => stock.symbol === symbol);
 
   return (
     <section className="mt-[77px] flex justify-between items-end border-b border-[rgba(217,217,217,0.2)] text-white">
