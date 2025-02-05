@@ -11,6 +11,7 @@ export default function StockHeaderSkeleton() {
             height={24}
             baseColor="#202020"
             highlightColor="#444"
+            className="max-[1248px]:!w-[100px]"
           />
           <Skeleton
             width={60}
@@ -39,6 +40,7 @@ export default function StockHeaderSkeleton() {
             height={22}
             baseColor="#202020"
             highlightColor="#444"
+            className="max-[1248px]:!hidden"
           />
         </div>
       </div>
@@ -49,6 +51,7 @@ export default function StockHeaderSkeleton() {
           baseColor="#202020"
           highlightColor="#444"
           borderRadius={8}
+          className="max-[1248px]:!w-[48px]"
         />
         <Skeleton
           width={100}
@@ -56,6 +59,7 @@ export default function StockHeaderSkeleton() {
           baseColor="#202020"
           highlightColor="#444"
           borderRadius={8}
+          className="max-[1248px]:!w-[48px]"
         />
       </div>
     </section>

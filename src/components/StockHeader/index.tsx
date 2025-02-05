@@ -34,7 +34,7 @@ export default function StockHeader({ symbol }: { symbol: string }) {
           <span className="text-[36px] font-bold leading-[43px]">
             {formatKRW(stock?.currentPrice ?? 0, true)}
           </span>
-          <span className="text-[22px] font-medium text-[#AAAFBE]">
+          <span className="text-[22px] font-medium text-[#AAAFBE] max-[1248px]:hidden">
             ${formatUSD(stock?.currentPrice ?? 0)}
           </span>
         </div>
@@ -47,14 +47,14 @@ export default function StockHeader({ symbol }: { symbol: string }) {
           className="flex gap-[8px] items-center justify-center h-[38px] px-[16px] bg-[#22222A] rounded-[8px] text-[14px] font-medium leading-[17px]"
         >
           <Info />
-          상세 정보
+          <span className="max-[1248px]:hidden">상세 정보</span>
         </button>
         <button
           onClick={() => togglePortfolio(symbol)}
           className="flex gap-[8px] items-center justify-center h-[38px] px-[16px] bg-[#22222A] rounded-[8px] text-[14px] font-medium leading-[17px]"
         >
           <Star fill={isBookmarked ? "#FFD900" : "white"} />
-          포트폴리오
+          <span className="max-[1248px]:hidden">포트폴리오</span>
         </button>
       </div>
     </section>

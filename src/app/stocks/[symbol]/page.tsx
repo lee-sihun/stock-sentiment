@@ -12,7 +12,7 @@ export default async function Page({ params }: { params: Params }) {
   return (
     <Layout>
       <StockHeader symbol={symbol} />
-      <div className="flex justify-between gap-[24px]">
+      <div className="flex justify-between gap-[24px] max-[1248px]:flex-col">
         <StockInsight symbol={symbol} />
         <StockGraph symbol={symbol} />
       </div>

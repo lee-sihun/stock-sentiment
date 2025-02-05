@@ -36,7 +36,7 @@ function SentimentsChart({ data }: { data: NewsArticle[] }) {
   const negativeRatio = total ? (negativeCount / total) * 100 : 0;
 
   return (
-    <div className="flex flex-col w-[282px] justify-between gap-[10px] mt-[16px]">
+    <div className="flex flex-col w-[282px] max-[1248px]:w-full justify-between gap-[10px] mt-[16px]">
       <span className="text-[12px] text-[#AAAFBE] leading-[14px]">
         시장 반응 비율
       </span>
@@ -104,7 +104,7 @@ function StockInfo({
   const successRate = days > 0 ? Math.floor((successCount / days) * 100) : 0;
 
   return (
-    <div className="flex flex-col w-[282px] gap-[12px]">
+    <div className="flex flex-col w-[282px] max-[1248px]:w-full gap-[12px]">
       <span className="w-full h-[46px] bg-[#22222A] rounded-[8px] px-[18px] flex items-center text-[16px] text-[#AAAFBE] leading-[19px]">
         <EmotionIcon className="mr-[18px]" />
         현재 시장 반응이&nbsp;
