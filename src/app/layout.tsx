@@ -3,6 +3,7 @@ import "@styles/globals.css";
 import ReactQueryProvider from "@/providers/ReactQueryProvider";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Background from "@/components/Layout/Background";
 
 const pretendard = localFont({
   src: "../../public/fonts/PretendardVariable.woff2",
@@ -19,8 +20,9 @@ export default function RootLayout({
     <html lang="ko">
       <body className={`${pretendard.className} antialiased`}>
         <ReactQueryProvider>
+          <Background />
           <Header />
-          <main>{children}</main>
+          <main className="z-[2]">{children}</main>
           <Footer />
         </ReactQueryProvider>
       </body>
