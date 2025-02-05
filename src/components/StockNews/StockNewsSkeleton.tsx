@@ -3,7 +3,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 
 export default function StockNewsSkeleton() {
   return (
-    <section className="flex flex-col gap-[83px] w-full mt-[32px]">
+    <section className="flex flex-col gap-[83px] max-[1248px]:gap-[50px] w-full mt-[32px]">
       <div className="flex items-center w-full gap-[25px]">
         <Skeleton
           width={100}
