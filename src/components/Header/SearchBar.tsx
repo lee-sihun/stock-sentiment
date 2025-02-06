@@ -20,6 +20,29 @@ export default function SearchBar() {
     )
     .slice(0, 5);
 
+  useEffect(() => {
+    // filteredStocks가 변경될 때마다 selectedIndex를 리셋하거나 조정
+    if (filteredStocks) {
+      if (selectedIndex >= filteredStocks.length) {
+        setSelectedIndex(Math.max(0, filteredStocks.length - 1));
+      }
+    } else {
+      setSelectedIndex(-1);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filteredStocks]);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (inputRef.current && !inputRef.current.contains(e.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, []);
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (!isOpen || !filteredStocks?.length) return;
 
@@ -51,17 +74,6 @@ export default function SearchBar() {
         break;
     }
   };
-
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (inputRef.current && !inputRef.current.contains(e.target as Node)) {
-        setIsOpen(false);
-      }
-    };
-
-    document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside);
-  }, []);
 
   return (
     <div className="relative">
