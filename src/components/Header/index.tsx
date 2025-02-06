@@ -1,3 +1,4 @@
+import Login from "./Login";
 import SearchBar from "./SearchBar";
 import Link from "next/link";
 
@@ -6,7 +7,10 @@ export default function Header() {
     <header className="bg-[rgba(0,0,1,0.35)] border-b border-[rgba(255,255,255,0.2)] min-h-[60px] flex justify-center w-full z-[10]">
       <div className="flex items-center justify-between h-full w-[1248px] px-[20px]">
         <Logo />
-        <SearchBar />
+        <div className="flex items-center gap-[10px]">
+          <SearchBar />
+          <Login />
+        </div>
       </div>
     </header>
   );
