@@ -7,7 +7,9 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
   return (
     <section className="w-full flex justify-center">
-      <div className="flex flex-col w-full max-w-[1248px] px-[24px]">{children}</div>
+      <div className="flex flex-col w-full max-w-[1248px] px-[20px]">
+        {children}
+      </div>
     </section>
   );
 }
