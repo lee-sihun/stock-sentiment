@@ -6,6 +6,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Background from "@/components/Layout/Background";
 import NextTopLoader from "nextjs-toploader";
+import AuthContext from "@/providers/AuthContext";
 
 const pretendard = localFont({
   src: "../../public/fonts/PretendardVariable.woff2",
@@ -57,13 +58,15 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={`${pretendard.className} antialiased`}>
-        <ReactQueryProvider>
-          <NextTopLoader color="#2FACA0" showSpinner={false} />
-          <Background />
-          <Header />
-          <main className="z-[2]">{children}</main>
-          <Footer />
-        </ReactQueryProvider>
+        <AuthContext>
+          <ReactQueryProvider>
+            <NextTopLoader color="#2FACA0" showSpinner={false} />
+            <Background />
+            <Header />
+            <main className="z-[2]">{children}</main>
+            <Footer />
+          </ReactQueryProvider>
+        </AuthContext>
       </body>
     </html>
   );
