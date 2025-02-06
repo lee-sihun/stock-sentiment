@@ -1,6 +1,6 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from 'nextjs-toploader/app';
 import { useStocksList } from "@/hooks/useStocksList";
 import Search from "@public/svgs/search.svg";
 
