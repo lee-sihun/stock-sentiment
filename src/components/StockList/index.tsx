@@ -106,7 +106,7 @@ function ItemsContainer() {
       {filteredStocks.map((stock, index) => (
         <StockListItem key={stock.rank} stock={stock} index={index} />
       ))}
-      {isFetchingNextPage && (
+      {isFetchingNextPage && !isPortfolioMode && (
         <div className="flex flex-col gap-[12px]">
           {Array.from({ length: STOCK_COUNT.STOCK_COUNT }).map((_, index) => (
             <StockListItemSkeleton key={`skeleton-${index}`} />
