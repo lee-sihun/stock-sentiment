@@ -1,6 +1,6 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
-import { useRouter } from 'nextjs-toploader/app';
+import { useRouter } from "nextjs-toploader/app";
 import { useStocksList } from "@/hooks/useStocksList";
 import Search from "@public/svgs/search.svg";
 
@@ -84,7 +84,7 @@ export default function SearchBar() {
         onChange={(e) => setSearchTerm(e.target.value)}
         onFocus={() => setIsOpen(true)}
         onKeyDown={handleKeyDown}
-        className={`bg-[#22222A] w-[240px] h-[36px] pl-[35px] pr-[11px] text-[#FFFFFF] text-[16px] outline-none placeholder:text-[#5C5F74] ${
+        className={`bg-[#22222A] w-[240px] max-[1248px]:w-[184px] h-[36px] pl-[35px] pr-[11px] text-[#FFFFFF] text-[16px] outline-none placeholder:text-[#5C5F74] ${
           isOpen && filteredStocks && filteredStocks.length > 0
             ? "rounded-t-lg"
             : "rounded-lg"
@@ -107,7 +107,7 @@ export default function SearchBar() {
                 selectedIndex === index ? "bg-[#16161D]" : ""
               }`}
             >
-              <Search />
+              <Search className="flex-shrink-0" />
               <span className="text-[#FFFFFF] text-[16px] truncate">
                 {stock.name}
               </span>
