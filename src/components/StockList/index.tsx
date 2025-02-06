@@ -66,16 +66,18 @@ function PortfolioToggle() {
 }
 
 function ItemsContainer() {
-  const { ref, inView } = useInView();
+  const { ref, inView } = useInView({
+    rootMargin: "100px 0px" 
+  });
   const { data, fetchNextPage, hasNextPage, isLoading, isFetchingNextPage } =
     useInfiniteStocks();
   const { isPortfolioMode, portfolioSymbols } = usePortfolioStore();
 
   useEffect(() => {
-    if (inView && hasNextPage) {
+    if (inView && hasNextPage && !isFetchingNextPage) {
       fetchNextPage();
     }
-  }, [inView, hasNextPage, fetchNextPage]);
+  }, [inView, hasNextPage, fetchNextPage, isFetchingNextPage]);
 
   if (isLoading)
     return (
