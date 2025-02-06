@@ -1,4 +1,4 @@
-import { getSentiments } from '@/services/getSentiments';
+import { getSentiments } from '@/services/sentiments/getSentiments';
 import { NextResponse } from 'next/server';
 
 type Params = Promise<{ symbol: string }>;

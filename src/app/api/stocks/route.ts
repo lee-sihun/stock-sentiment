@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getStocksByPage } from '@/services/getStocks';
+import { getStocksByPage } from '@/services/stocks/getStocks';
 
 export async function GET(request: Request) {
   try {

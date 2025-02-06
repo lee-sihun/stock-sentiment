@@ -1,7 +1,7 @@
 import { supabase } from '@/lib/supabase';
 import { Stock } from '@/types/stock';
 import yahooFinance from 'yahoo-finance2';
-import { getTodaySentiments } from './getTodaySentiments';
+import { getTodaySentiments } from '../sentiments/getTodaySentiments';
 
 export async function getStocks(symbol: string): Promise<Stock> {
   try {

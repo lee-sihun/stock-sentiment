@@ -1,8 +1,8 @@
-import { updateStockRank } from '../src/services/updateStockRank';
-import { createStockNews } from '../src/services/createStockNews';
-import { updateNewsSentiment } from '@/services/updateNewsSentiment';
-import { updateTotalSentiment } from '@/services/updateTotalSentiment';
-import { verifySentiments } from '@/services/verifySentiments';
+import { updateStockRank } from '../src/services/stocks/updateStockRank';
+import { createStockNews } from '../src/services/news/createStockNews';
+import { updateNewsSentiment } from '@/services/news/updateNewsSentiment';
+import { updateTotalSentiment } from '@/services/sentiments/updateTotalSentiment';
+import { verifySentiments } from '@/services/sentiments/verifySentiments';
 // import { rollbackAccuracy, verifyPastSentiments } from '@services/verifyPastSentiments';
 // import { updatePastSentiments } from '@/services/updatePastSentiments';
 

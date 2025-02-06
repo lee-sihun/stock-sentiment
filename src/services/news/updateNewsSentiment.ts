@@ -1,5 +1,5 @@
 import { supabase } from "@/lib/supabase";
-import { analyzeHeadlines } from "./analyzeHeadlines";
+import { analyzeHeadlines } from "../analyzeHeadlines";
 
 export async function updateNewsSentiment(): Promise<void> {
   try {
