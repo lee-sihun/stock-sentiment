@@ -7,10 +7,10 @@ import { useInfiniteStocks } from "@/hooks/useInfiniteStocks";
 import { useInView } from "react-intersection-observer";
 import { STOCK_COUNT } from "@/config/constants";
 import StockListItemSkeleton from "./StockListItemSkeleton";
-import { usePortfolioStore } from "@/stores/usePortfolioStore";
+import { usePortfolio } from "@/stores/usePortfolioStore";
 
 export default function StockList() {
-  const { isPortfolioMode } = usePortfolioStore();
+  const { isPortfolioMode } = usePortfolio();
 
   return (
     <section className="mt-[68px] max-[1248px]:mt-[74px]">
@@ -52,7 +52,7 @@ export default function StockList() {
 }
 
 function PortfolioToggle() {
-  const { isPortfolioMode, setPortfolioMode } = usePortfolioStore();
+  const { isPortfolioMode, setPortfolioMode } = usePortfolio();
 
   return (
     <button
@@ -71,7 +71,7 @@ function ItemsContainer() {
   });
   const { data, fetchNextPage, hasNextPage, isLoading, isFetchingNextPage } =
     useInfiniteStocks();
-  const { isPortfolioMode, portfolioSymbols } = usePortfolioStore();
+  const { isPortfolioMode, portfolioSymbols } = usePortfolio();
 
   useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage) {

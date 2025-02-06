@@ -4,10 +4,10 @@ import { formatKRW, formatUSD } from "@/utils/formatNumber";
 import Info from "@public/svgs/info.svg";
 import Star from "@public/svgs/star.svg";
 import StockHeaderSkeleton from "./StockHeaderSkeleton";
-import { usePortfolioStore } from "@/stores/usePortfolioStore";
+import { usePortfolio } from "@/stores/usePortfolioStore";
 
 export default function StockHeader({ symbol }: { symbol: string }) {
-  const { togglePortfolio, isInPortfolio } = usePortfolioStore();
+  const { togglePortfolio, isInPortfolio } = usePortfolio();
   const isBookmarked = isInPortfolio(symbol);
   const { data: stock, isLoading } = useStocks(symbol);
 
