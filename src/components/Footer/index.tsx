@@ -8,6 +8,10 @@ export default function Footer() {
           Copyright © 2025{" "}
           <Link className="underline" href="https://github.com/lee-sihun">
             lee-sihun
+          </Link>
+          {" · "}
+          <Link className="underline" href="https://github.com/yeonu-me">
+            Yeonu
           </Link>{" "}
           All rights reserved.
         </span>
