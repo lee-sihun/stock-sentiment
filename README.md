@@ -91,3 +91,13 @@ DeepEye는 주요 기업들의 실시간 주가 정보와 함께, LLM을 활용�
 - Cron Jobs 주기를 단축해 최신 데이터를 제공할 수 있도록 개선
 - 종목별 댓글 기능 구현
 - 라이트 모드 지원
+
+## 👥 Contributors
+
+### Developer
+
+- [이시훈](https://github.com/lee-sihun) - 풀스택 개발, 기획 
+
+### Designer
+
+- [연우](https://github.com/yeonu-me) - UI/UX 디자인, 기획
