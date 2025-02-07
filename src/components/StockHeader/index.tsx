@@ -4,7 +4,7 @@ import { formatKRW, formatUSD } from "@/utils/formatNumber";
 import Info from "@public/svgs/info.svg";
 import Star from "@public/svgs/star.svg";
 import StockHeaderSkeleton from "./StockHeaderSkeleton";
-import { usePortfolio } from "@/stores/usePortfolioStore";
+import { usePortfolio } from "@/hooks/usePortfolio";
 
 export default function StockHeader({ symbol }: { symbol: string }) {
   const { togglePortfolio, isInPortfolio } = usePortfolio();

@@ -7,7 +7,7 @@ import { useInfiniteStocks } from "@/hooks/useInfiniteStocks";
 import { useInView } from "react-intersection-observer";
 import { STOCK_COUNT } from "@/config/constants";
 import StockListItemSkeleton from "./StockListItemSkeleton";
-import { usePortfolio } from "@/stores/usePortfolioStore";
+import { usePortfolio } from "@/hooks/usePortfolio";
 
 export default function StockList() {
   const { isPortfolioMode } = usePortfolio();
