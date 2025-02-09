@@ -1,6 +1,7 @@
 import Login from "./Login";
 import SearchBar from "./SearchBar";
 import Link from "next/link";
+import LogoIcon from '@public/svgs/logo.svg';
 
 export default function Header() {
   return (
@@ -20,7 +21,10 @@ function Logo() {
   return (
     <Link href="/">
       <div className="flex items-center cursor-pointer">
-        <h1 className="text-[#fff] text-[32px] font-medium">LOGO</h1>
+        <LogoIcon />
+        <h1 className="pl-[8px] text-[#fff] text-[24px] font-semibold max-[424px]:hidden">
+          DeepEye
+        </h1>
       </div>
     </Link>
   );
