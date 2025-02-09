@@ -96,11 +96,13 @@ function StockInfo({
       ? Bad
       : Expressionless;
 
+  const nonNeutralSentiments = sentiments.filter(
+    // @ts-expect-error 타입 에러
+    (s) => s.is_accurate !== null && s.sentiment !== 0
+  );
+  const days = nonNeutralSentiments.length;
   // @ts-expect-error 타입 에러
-  const verifiedSentiments = sentiments.filter((s) => s.is_accurate !== null);
-  const days = verifiedSentiments.length;
-  // @ts-expect-error 타입 에러
-  const successCount = verifiedSentiments.filter((s) => s.is_accurate).length;
+  const successCount = nonNeutralSentiments.filter((s) => s.is_accurate).length;
   const successRate = days > 0 ? Math.floor((successCount / days) * 100) : 0;
 
   return (
