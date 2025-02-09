@@ -6,7 +6,7 @@ export async function createStockNews(): Promise<void> {
     // 주식 종목 데이터 조회
     const { data: stocks, error: stocksError } = await supabase
       .from('stocks')
-      .select('symbol')
+      .select('symbol, name')
       .order('rank', { ascending: true });
 
     if (stocksError) throw stocksError;
@@ -22,7 +22,7 @@ export async function createStockNews(): Promise<void> {
       
       await Promise.all(batch.map(async (stock) => {
         try {
-          const newsArticles = await getStockNews(stock.symbol);
+          const newsArticles = await getStockNews(stock.name);
 
           const formattedNews = newsArticles
             .filter(article => 
