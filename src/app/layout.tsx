@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     locale: "ko_KR",
     images: [
       {
-        url: "/img/logo.jpg",
+        url: "/images/logo.jpg",
         width: 800,
         height: 600,
         alt: "site logo",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     description: "주식 기사 감정 분석 서비스 DeepEye입니다.",
     images: [
       {
-        url: "/img/logo.jpg",
+        url: "/images/logo.jpg",
         alt: "site logo",
       },
     ],

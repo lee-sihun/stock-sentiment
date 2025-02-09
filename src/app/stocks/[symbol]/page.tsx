@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
       locale: "ko_KR",
       images: [
         {
-          url: "/img/logo.jpg",
+          url: "/images/logo.jpg",
           width: 800,
           height: 600,
           alt: "site logo",
@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
       description,
       images: [
         {
-          url: "/img/logo.jpg",
+          url: "/images/logo.jpg",
           alt: "site logo",
         },
       ],
