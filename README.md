@@ -39,7 +39,7 @@ DeepEye는 주요 기업들의 실시간 주가 정보와 함께, LLM을 활용�
 - **Database**: Supabase (PostgreSQL)
 - **AI/ML**:
   - OpenRouter(OpenAI 호환) API
-  - deepseek/deepseek-chat 모델 사용
+  - google/gemini-2.0-flash-001 모델 사용
 - **CI/CD & Deploy**: Vercel
 - **Scheduling**: GitHub Actions (Cron Jobs)
 

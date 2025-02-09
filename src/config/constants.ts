@@ -15,8 +15,9 @@ export const AI = {
     deepseek/deepseek-chat
     openai/gpt-4o-2024-11-20
     openai/gpt-4o-mini
+    google/gemini-2.0-flash-001
   */
-  MODEL: 'deepseek/deepseek-chat',
+  MODEL: 'google/gemini-2.0-flash-001',
 } as const;
 
 // 한번에 보여줄 종목 개수 
