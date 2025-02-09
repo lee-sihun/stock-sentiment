@@ -1,11 +1,15 @@
 # 👀 DeepEye!
+<div align="center">
+  <img src="https://i.ibb.co/MkJWnDNH/Capture-2025-02-09-204852.png" width="45%" alt="메인페이지">
+  <img src="https://i.ibb.co/Q70Rh8kB/Capture-2025-02-09-205008.png" width="45%" alt="상세페이지">
+</div>  
 
 [🔗 서비스 바로가기](https://deepeye.pro)  
-주식의 뉴스 기사를 LLM으로 감정 분석하여 제공하는 실시간 주식 모니터링 서비스입니다.
+주식의 뉴스 기사를 LLM으로 감정 분석하여 제공하는 투자 인사이트 서비스입니다.
 
 ## 📌 프로젝트 소개
 
-이 프로젝트는 ["Can ChatGPT Forecast Stock Price Movements? Return Predictability and Large Language Models" (Lopez-Lira & Tang, 2023)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4412788) 논문에서 영감을 받아 시작된 프로젝트입니다. 해당 연구는 LLM이 주식 시장의 움직임을 예측하는데 유의미한 성과를 보여준다는 것을 입증했습니다.
+이 프로젝트는 [Can ChatGPT Forecast Stock Price Movements? Return Predictability and Large Language Models (Lopez-Lira & Tang, 2023)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4412788) 논문에서 영감을 받아 시작된 프로젝트입니다. 해당 연구는 LLM이 주식 시장의 움직임을 예측하는데 유의미한 성과를 보여준다는 것을 입증했습니다.
 
 이를 바탕으로 DeepEye는 주요 기업들의 실시간 주가 정보와 함께, LLM을 활용한 뉴스 기사 감정 분석 결과를 제공하여 투자자들이 보다 객관적이고 정확한 시장 동향을 파악할 수 있도록 돕습니다.
 
