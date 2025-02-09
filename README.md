@@ -5,7 +5,9 @@
 
 ## 📌 프로젝트 소개
 
-DeepEye는 주요 기업들의 실시간 주가 정보와 함께, LLM을 활용한 뉴스 기사 감정 분석 결과를 제공합니다. 투자자들이 보다 객관적이고 정확한 시장 동향을 파악할 수 있도록 돕습니다.
+이 프로젝트는 ["Can ChatGPT Forecast Stock Price Movements? Return Predictability and Large Language Models" (Lopez-Lira & Tang, 2023)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4412788) 논문에서 영감을 받아 시작된 프로젝트입니다. 해당 연구는 LLM이 주식 시장의 움직임을 예측하는데 유의미한 성과를 보여준다는 것을 입증했습니다.
+
+이를 바탕으로 DeepEye는 주요 기업들의 실시간 주가 정보와 함께, LLM을 활용한 뉴스 기사 감정 분석 결과를 제공하여 투자자들이 보다 객관적이고 정확한 시장 동향을 파악할 수 있도록 돕습니다.
 
 ### 주요 기능
 
@@ -96,7 +98,7 @@ DeepEye는 주요 기업들의 실시간 주가 정보와 함께, LLM을 활용�
 
 ### Developer
 
-- [이시훈](https://github.com/lee-sihun) - 풀스택 개발, 기획 
+- [이시훈](https://github.com/lee-sihun) - 풀스택 개발, 기획
 
 ### Designer
 
