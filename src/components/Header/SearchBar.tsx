@@ -1,7 +1,8 @@
 "use client";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { useRouter } from "nextjs-toploader/app";
 import { useStocksList } from "@/hooks/useStocksList";
+import { useDebounce } from "@/hooks/useDebounce";
 import Search from "@public/svgs/search.svg";
 
 export default function SearchBar() {
@@ -10,15 +11,24 @@ export default function SearchBar() {
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(-1);
+  const debouncedSearchTerm = useDebounce(searchTerm, 300);
   const { data: stocks } = useStocksList();
 
-  const filteredStocks = stocks
-    ?.filter(
-      (stock) =>
-        stock.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        stock.symbol.toLowerCase().includes(searchTerm.toLowerCase())
-    )
-    .slice(0, 5);
+  const filteredStocks = useMemo(
+    () =>
+      stocks
+        ?.filter(
+          (stock) =>
+            stock.name
+              .toLowerCase()
+              .includes(debouncedSearchTerm.toLowerCase()) ||
+            stock.symbol
+              .toLowerCase()
+              .includes(debouncedSearchTerm.toLowerCase())
+        )
+        .slice(0, 5),
+    [stocks, debouncedSearchTerm]
+  );
 
   useEffect(() => {
     // filteredStocks가 변경될 때마다 selectedIndex를 리셋하거나 조정
