@@ -29,10 +29,10 @@ export default function StockHeader({ symbol }: { symbol: string }) {
         </div>
         <div className="flex items-center gap-[10px]">
           <span className="text-[36px] font-bold leading-[43px]">
-            {formatKRW(stock?.currentPrice ?? 0, true)}
+            {formatKRW(stock?.current_price ?? 0, true)}
           </span>
           <span className="text-[22px] font-medium text-[#AAAFBE] max-[1248px]:hidden">
-            ${formatUSD(stock?.currentPrice ?? 0)}
+            ${formatUSD(stock?.current_price ?? 0)}
           </span>
         </div>
       </div>

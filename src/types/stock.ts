@@ -3,8 +3,8 @@ export interface Stock {
   symbol: string;
   name: string;
   exchange?: string | null;
-  currentPrice?: number | null;
+  current_price?: number | null;
   volume?: number | null;
-  marketCap?: number | null;
+  market_cap?: number | null;
   sentiment?: number | null;
 }

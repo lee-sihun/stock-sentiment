@@ -26,11 +26,11 @@ export async function getStocks(symbol: string): Promise<Stock> {
         // @ts-expect-error 타입에러
         exchange: quote.fullExchangeName,
         // @ts-expect-error 타입에러
-        currentPrice: quote.regularMarketPrice,
+        current_price: quote.regularMarketPrice,
         // @ts-expect-error 타입에러
         volume: quote.regularMarketVolume * quote.regularMarketPrice,
         // @ts-expect-error 타입에러
-        marketCap: quote.marketCap,
+        market_cap: quote.marketCap,
         sentiment: sentiment[0]["sentiment"]
       };
     } catch (error) {
@@ -40,9 +40,9 @@ export async function getStocks(symbol: string): Promise<Stock> {
         symbol: data.symbol,
         name: data.name,
         exchange: null,
-        currentPrice: null,
+        current_price: null,
         volume: null,
-        marketCap: null,
+        market_cap: null,
         sentiment: null
       };
     }
@@ -77,11 +77,11 @@ export async function getStocksByPage(pageParam: number = 0): Promise<Stock[]> {
             // @ts-expect-error 타입에러
             exchange: quote.fullExchangeName,
             // @ts-expect-error 타입에러
-            currentPrice: quote.regularMarketPrice,
+            current_price: quote.regularMarketPrice,
             // @ts-expect-error 타입에러
             volume: quote.regularMarketVolume * quote.regularMarketPrice,
             // @ts-expect-error 타입에러
-            marketCap: quote.marketCap,
+            market_cap: quote.marketCap,
             sentiment: sentiment[0]["sentiment"]
           };
         } catch (error) {
@@ -92,9 +92,9 @@ export async function getStocksByPage(pageParam: number = 0): Promise<Stock[]> {
             symbol: stock.symbol,
             name: stock.name,
             exchange: null,
-            currentPrice: null,
+            current_price: null,
             volume: null,
-            marketCap: null,
+            market_cap: null,
             sentiment: null
           };
         }
