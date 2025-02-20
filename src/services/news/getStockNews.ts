@@ -18,19 +18,19 @@ export async function getStockNews(symbol: string): Promise<NewsArticle[]> {
         const rawThumbnailUrl = $article.find('figure img').attr('srcset')?.split(' ')[0];
         const link = $article.find('a[target="_blank"]').attr('href')?.replace('./read/', 'https://news.google.com/read/');
         const source = $article.find('div[data-n-tid="9"]').text().trim();
-        const publishedAt = $article.find('time[datetime]').attr('datetime');
+        const published_at = $article.find('time[datetime]').attr('datetime');
         
         // 썸네일 URL 조합 및 유효성 검사
-        const thumbnailUrl = rawThumbnailUrl 
+        const thumbnail_url = rawThumbnailUrl 
           ? `https://news.google.com${rawThumbnailUrl.replace(/-w\d+-h\d+-p-df(-rw)?$/, '')}` 
           : 'https://via.placeholder.com/300x200?text=No+Image'; // 기본 이미지 URL
           
-        return headline && publishedAt && link && thumbnailUrl ? {
+        return headline && published_at && link && thumbnail_url ? {
           headline,
-          thumbnailUrl,
+          thumbnail_url,
           link,
           source: source || 'Unknown',
-          publishedAt,
+          published_at,
         } : null;
       })
       .get()
