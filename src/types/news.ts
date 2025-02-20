@@ -1,9 +1,9 @@
 export interface NewsArticle {
-  stockId: string;
+  stock_id: string;
   headline: string;
-  thumbnailUrl: string;
+  thumbnail_url: string;
   link: string;
   source: string;
   sentiment: number;
-  publishedAt: string;
+  published_at: string;
 }

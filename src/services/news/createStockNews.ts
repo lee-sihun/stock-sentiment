@@ -27,17 +27,17 @@ export async function createStockNews(): Promise<void> {
           const formattedNews = newsArticles
             .filter(article => 
               article.headline && 
-              article.publishedAt && 
+              article.published_at && 
               article.link && 
               article.source
             )
             .map(article => ({
               stock_id: stock.symbol,
               headline: article.headline,
-              thumbnail_url: article.thumbnailUrl || null,
+              thumbnail_url: article.thumbnail_url || null,
               link: article.link,
               source: article.source,
-              published_at: article.publishedAt,
+              published_at: article.published_at,
               sentiment: 0,
             }));
 

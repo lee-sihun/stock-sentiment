@@ -47,11 +47,9 @@ export default function StockNews({ symbol }: { symbol: string }) {
   if (isLoading) return <StockNewsSkeleton />;
 
   const sortedNews = news
-    // @ts-expect-error 타입 에러
     ?.filter((item) => !item.thumbnail_url?.includes("placeholder.com"))
     ?.sort(
       (a, b) =>
-        // @ts-expect-error 타입 에러
         new Date(b.published_at).getTime() - new Date(a.published_at).getTime()
     );
 
@@ -92,8 +90,7 @@ export default function StockNews({ symbol }: { symbol: string }) {
         className="flex w-full overflow-x-auto whitespace-nowrap scrollbar-hide gap-[24px]"
       >
         {sortedNews?.map((item) => (
-          // @ts-expect-error 타입 에러
-          <NewsCard key={item.id} news={item} />
+          <NewsCard key={`${item.stock_id}-${item.published_at}`} news={item} />
         ))}
       </div>
     </section>
@@ -118,10 +115,7 @@ function NewsCard({ news }: { news: NewsArticle }) {
     >
       <div className="w-[282px] h-[160px] overflow-hidden rounded-lg">
         <Image
-          src={
-            // @ts-expect-error 타입 에러
-            news.thumbnail_url || "/images/news.png"
-          }
+          src={news.thumbnail_url || "/images/news.png"}
           alt="thumbnail"
           width={282}
           height={160}
@@ -137,10 +131,7 @@ function NewsCard({ news }: { news: NewsArticle }) {
         </span>
         <div className="flex items-center gap-[10px]">
           <span className="text-[16px] text-[#AAAFBE] leading-[19px]">
-            {
-              // @ts-expect-error 타입 에러
-              getTimeAgo(news.published_at)
-            }
+            {getTimeAgo(news.published_at)}
           </span>
           <span
             className={`flex items-center justify-center ${sentimentColor} w-[34px] h-[17px] rounded-[80px] text-white text-[11px] font-medium`}

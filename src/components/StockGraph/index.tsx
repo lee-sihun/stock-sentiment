@@ -20,34 +20,27 @@ export default function StockGraph({ symbol }: { symbol: string }) {
       ? news
           ?.sort(
             (a, b) =>
-              // @ts-expect-error 타입 에러
               new Date(a.published_at).getTime() -
-              // @ts-expect-error 타입 에러
               new Date(b.published_at).getTime()
           )
           .map((item) => ({
             name: format(
-              // @ts-expect-error 타입 에러
               new Date(new Date(item.published_at).getTime() + 32400000),
               "HH:mm"
             ),
             value: item.sentiment,
           }))
       : sentiments
-          // @ts-expect-error 타입 에러
           ?.filter((item) => item.is_accurate !== null)
           .sort(
             (a, b) =>
-              // @ts-expect-error 타입 에러
               new Date(b.created_at).getTime() -
-              // @ts-expect-error 타입 에러
               new Date(a.created_at).getTime()
           )
           .slice(0, 7)
           .reverse()
           .map((item) => ({
             name: format(
-              // @ts-expect-error 타입 에러
               new Date(new Date(item.created_at).getTime() + 32400000),
               "MM/dd"
             ),
@@ -56,14 +49,12 @@ export default function StockGraph({ symbol }: { symbol: string }) {
 
   const latestNews = news?.sort(
     (a, b) =>
-      // @ts-expect-error 타입 에러
-      new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+      new Date(b.published_at).getTime() - new Date(a.published_at).getTime()
   )[0];
 
   const latestDate = latestNews
     ? format(
-        // @ts-expect-error 타입 에러
-        new Date(new Date(latestNews.created_at).getTime() + 32400000),
+        new Date(new Date(latestNews.published_at).getTime() + 32400000),
         "yyyy년 M월 d일 a h시"
       )
         .replace("AM", "오전")

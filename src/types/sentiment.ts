@@ -1,5 +1,6 @@
 export interface Sentiment {
-  stockId: string;
+  stock_id: string;
   sentiment: number;
-  isAccurate?: boolean;
+  is_accurate?: boolean;
+  created_at: string;
 }
