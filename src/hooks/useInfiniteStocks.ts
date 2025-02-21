@@ -1,4 +1,5 @@
 import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
+import axiosInstance from '@/lib/axios';
 import { Stock } from '@/types/stock';
 
 const MAX_PAGE = 3; // 최대 페이지 수
@@ -9,9 +10,9 @@ export function useInfiniteStocks() {
   return useInfiniteQuery({
     queryKey: ['infiniteStocks'],
     queryFn: async ({ pageParam = 0 }) => {
-      const response = await fetch(`/api/stocks?page=${pageParam}`);
-      if (!response.ok) throw new Error('API 요청 실패');
-      const stocks: Stock[] = await response.json();
+      const { data: stocks } = await axiosInstance.get<Stock[]>(`/stocks`, {
+        params: { page: pageParam }
+      });
       
       // 각 주식 데이터를 개별적으로 캐시에 저장
       stocks.forEach((stock) => {
