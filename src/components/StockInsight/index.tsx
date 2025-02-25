@@ -46,7 +46,9 @@ function SentimentsChart({ data }: { data: NewsArticle[] }) {
           style={{ width: `${positiveRatio}%` }}
         />
         <div
-          className="bg-white h-[8px]"
+          className={`bg-white h-[8px] ${
+            positiveRatio === 0 ? "rounded-l-[18px]" : ""
+          } ${negativeRatio === 0 ? "rounded-r-[18px]" : ""}`}
           style={{ width: `${neutralRatio}%` }}
         />
         <div
