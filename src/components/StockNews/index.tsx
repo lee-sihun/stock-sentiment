@@ -93,7 +93,10 @@ export default function StockNews({
         className="flex w-full overflow-x-auto whitespace-nowrap scrollbar-hide gap-[24px]"
       >
         {sortedNews?.map((item) => (
-          <NewsCard key={`${item.stock_id}-${item.published_at}`} news={item} />
+          <NewsCard
+            key={`${item.stock_id}-${item.published_at}-${item.link}`}
+            news={item}
+          />
         ))}
       </div>
     </section>
