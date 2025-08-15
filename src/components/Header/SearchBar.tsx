@@ -69,9 +69,11 @@ export default function SearchBar() {
         break;
       case "Enter":
         if (selectedIndex >= 0) {
-          router.push(`/stocks/${filteredStocks[selectedIndex].symbol}`);
+          router.push(`/stocks/${filteredStocks[selectedIndex].symbol}`, {
+            scroll: true,
+          });
         } else if (filteredStocks[0]) {
-          router.push(`/stocks/${filteredStocks[0].symbol}`);
+          router.push(`/stocks/${filteredStocks[0].symbol}`, { scroll: true });
         }
         setIsOpen(false);
         setSearchTerm("");
@@ -107,7 +109,7 @@ export default function SearchBar() {
             <li
               key={stock.symbol}
               onClick={() => {
-                router.push(`/stocks/${stock.symbol}`);
+                router.push(`/stocks/${stock.symbol}`, { scroll: true });
                 setIsOpen(false);
                 setSearchTerm("");
                 setSelectedIndex(-1);

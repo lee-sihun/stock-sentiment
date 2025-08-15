@@ -20,7 +20,7 @@ export default function Header() {
 
 function Logo() {
   return (
-    <Link href="/">
+    <Link href="/" scroll>
       <div className="flex items-center cursor-pointer">
         <LogoIcon />
         <h1 className="pl-[8px] text-[#fff] text-[24px] font-semibold max-[424px]:hidden">

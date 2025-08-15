@@ -9,7 +9,7 @@ interface StockListItemProps {
 
 export default function StockListItem({ stock, index }: StockListItemProps) {
   return (
-    <Link href={`/stocks/${stock.symbol}`}>
+    <Link href={`/stocks/${stock.symbol}`} prefetch scroll>
       <li className="flex w-full h-[63px] bg-[#22222A] rounded-lg text-[16px] text-[#AAAFBE] font-normal cursor-pointer">
         <div className="h-full flex-1 shrink basis-[78px] flex items-center justify-center text-white max-[1248px]:hidden">
           #{index + 1}
