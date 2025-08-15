@@ -16,7 +16,7 @@
 ### 주요 기능
 
 - **실시간 주가 모니터링**: Yahoo Finance API를 통한 실시간 주가 데이터 제공
-- **LLM 기반 뉴스 분석**: DeepSeek/chat 모델을 활용한 뉴스 기사 감정 분석
+- **LLM 기반 뉴스 분석**: gemini-2.5-flash-lite 모델을 활용한 뉴스 기사 감정 분석
 - **포트폴리오 관리**:
   - 비로그인: LocalStorage를 활용한 관심 종목 관리
   - 로그인: Supabase DB를 활용한 관심 종목 관리
@@ -45,7 +45,7 @@
 - **Database**: Supabase (PostgreSQL)
 - **AI/ML**:
   - OpenRouter(OpenAI 호환) API
-  - google/gemini-2.0-flash-001 모델 사용
+  - google/gemini-2.5-flash-lite 모델 사용
 - **CI/CD & Deploy**: Vercel
 - **Scheduling**: GitHub Actions (Cron Jobs)
 

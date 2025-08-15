@@ -17,10 +17,10 @@ export const AI = {
     openai/gpt-4o-mini
     google/gemini-2.0-flash-001
   */
-  MODEL: 'google/gemini-2.0-flash-001',
+  MODEL: "google/gemini-2.5-flash-lite",
 } as const;
 
-// 한번에 보여줄 종목 개수 
+// 한번에 보여줄 종목 개수
 export const STOCK_COUNT = {
   STOCK_COUNT: 10,
 } as const;
