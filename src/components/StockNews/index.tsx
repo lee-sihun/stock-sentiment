@@ -1,21 +1,24 @@
 "use client";
 import { useRef, useState, useEffect, useCallback } from "react";
 import { useScroll } from "@/hooks/useScroll";
-import { useNews } from "@/hooks/useNews";
 import { NewsArticle } from "@/types/news";
 import { getTimeAgo } from "@/utils/formatTime";
 import StockNewsSkeleton from "./StockNewsSkeleton";
 import Image from "next/image";
 import Arrow from "@public/svgs/angle-arrow.svg";
 
-export default function StockNews({ symbol }: { symbol: string }) {
+export default function StockNews({
+  initialNews,
+}: {
+  initialNews?: NewsArticle[];
+}) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const { smoothScroll, checkScrollable } = useScroll();
   const [scrollState, setScrollState] = useState({
     canScrollLeft: false,
     canScrollRight: false,
   });
-  const { data: news, isLoading } = useNews(symbol);
+  const news = initialNews;
 
   const handleScroll = useCallback(() => {
     if (scrollRef.current) {
@@ -44,7 +47,7 @@ export default function StockNews({ symbol }: { symbol: string }) {
     }
   }, [handleScroll]);
 
-  if (isLoading) return <StockNewsSkeleton />;
+  if (!news) return <StockNewsSkeleton />;
 
   const sortedNews = news
     ?.filter((item) => !item.thumbnail_url?.includes("placeholder.com"))

@@ -1,7 +1,8 @@
+"use client";
 import Login from "./Login";
 import SearchBar from "./SearchBar";
 import Link from "next/link";
-import LogoIcon from '@public/svgs/logo.svg';
+import LogoIcon from "@public/svgs/logo.svg";
 
 export default function Header() {
   return (
