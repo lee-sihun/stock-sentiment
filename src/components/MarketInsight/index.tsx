@@ -1,15 +1,17 @@
-"use client";
-import { useTodaySentiments } from "@/hooks/useTodaySentiments";
-import MarketInsightSkeleton from "./MarketInsightSkeleton";
 import { STOCK_COUNT } from "@/config/constants";
+import { unstable_cache } from "next/cache";
+import { getTodaySentiments } from "@/services/sentiments/getTodaySentiments";
 
-export default function MarketInsight() {
-  const { data: sentiments, isLoading } = useTodaySentiments();
-
-  if (isLoading) return <MarketInsightSkeleton />;
+export default async function MarketInsight() {
+  const sentiments = await unstable_cache(
+    () => getTodaySentiments(),
+    ["todaySentiments"],
+    { revalidate: 300 }
+  )();
 
   const processedSentiments = sentiments
-    ?.reverse()
+    ?.slice()
+    .reverse()
     .slice(0, STOCK_COUNT.STOCK_COUNT - 1);
   const totalSentiment =
     processedSentiments?.reduce((sum, item) => {

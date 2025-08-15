@@ -1,6 +1,3 @@
-"use client";
-import { useNews } from "@/hooks/useNews";
-import { useSentiments } from "@/hooks/useSentiments";
 import { NewsArticle } from "@/types/news";
 import { Sentiment } from "@/types/sentiment";
 import StockInsightSkeleton from "./StockInsightSkeleton";
@@ -8,19 +5,27 @@ import Smile from "@public/svgs/smile.svg";
 import Expressionless from "@public/svgs/expressionless.svg";
 import Bad from "@public/svgs/bad.svg";
 import Report from "@public/svgs/report.svg";
+import { unstable_cache } from "next/cache";
+import { getRecentNews } from "@/services/news/getRecentNews";
+import { getSentiments } from "@/services/sentiments/getSentiments";
 
-export default function StockInsight({ symbol }: { symbol: string }) {
-  const { data: news, isLoading: newsLoading } = useNews(symbol);
-  const { data: sentiments, isLoading: sentimentsLoading } =
-    useSentiments(symbol);
+export default async function StockInsight({ symbol }: { symbol: string }) {
+  const [news, sentiments] = await Promise.all([
+    unstable_cache(() => getRecentNews(symbol), ["news", symbol], {
+      revalidate: 300,
+    })(),
+    unstable_cache(() => getSentiments(symbol), ["sentiments", symbol], {
+      revalidate: 300,
+    })(),
+  ]);
 
-  if (newsLoading || sentimentsLoading) {
+  if (!news || !sentiments) {
     return <StockInsightSkeleton />;
   }
   return (
     <section className="flex flex-col gap-[16px]">
-      <SentimentsChart data={news || []} />
-      <StockInfo data={news || []} sentiments={sentiments || []} />
+      <SentimentsChart data={news} />
+      <StockInfo data={news} sentiments={sentiments} />
     </section>
   );
 }
