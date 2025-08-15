@@ -4,10 +4,16 @@ import StockHeader from "@/components/StockHeader";
 import StockInsight from "@/components/StockInsight";
 import StockNews from "@/components/StockNews";
 import type { Metadata } from "next";
+import { getRecentNews } from "@/services/news/getRecentNews";
+import { unstable_cache } from "next/cache";
 
 type Params = Promise<{ symbol: string }>;
 
-export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Params;
+}): Promise<Metadata> {
   const { symbol } = await params;
   const title = `${symbol}`;
   const description = `${symbol}의 기사 감정 분석 및 최신 정보를 확인하세요.`;
@@ -45,8 +51,16 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   };
 }
 
+export const revalidate = 300; 
+
 export default async function Page({ params }: { params: Params }) {
   const { symbol } = await params;
+
+  const initialNews = await unstable_cache(
+    () => getRecentNews(symbol),
+    ["news", symbol],
+    { revalidate: 300 }
+  )();
 
   return (
     <Layout>
@@ -55,7 +69,7 @@ export default async function Page({ params }: { params: Params }) {
         <StockInsight symbol={symbol} />
         <StockGraph symbol={symbol} />
       </div>
-      <StockNews symbol={symbol} />
+      <StockNews initialNews={initialNews} />
     </Layout>
   );
 }
