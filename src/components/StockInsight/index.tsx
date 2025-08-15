@@ -8,6 +8,7 @@ import Report from "@public/svgs/report.svg";
 import { unstable_cache } from "next/cache";
 import { getRecentNews } from "@/services/news/getRecentNews";
 import { getSentiments } from "@/services/sentiments/getSentiments";
+import { PREDICTION } from "@/config/constants";
 
 export default async function StockInsight({ symbol }: { symbol: string }) {
   const [news, sentiments] = await Promise.all([
@@ -103,7 +104,23 @@ function StockInfo({
       ? Bad
       : Expressionless;
 
-  const nonNeutralSentiments = sentiments.filter(
+  // const nonNeutralSentiments = sentiments.filter(
+  //   (s) => s.is_accurate !== null && s.sentiment !== 0
+  // );
+  // const days = nonNeutralSentiments.length;
+  // const successCount = nonNeutralSentiments.filter((s) => s.is_accurate).length;
+  // const successRate = days > 0 ? Math.floor((successCount / days) * 100) : 0;
+
+  // 최신 n일 기준으로 필터링
+  const cutoffDate = new Date();
+  cutoffDate.setDate(cutoffDate.getDate() - PREDICTION.SUCCESS_RATE_DAYS);
+
+  const recentSentiments = sentiments.filter((s) => {
+    const sentimentDate = new Date(s.created_at);
+    return sentimentDate >= cutoffDate;
+  });
+
+  const nonNeutralSentiments = recentSentiments.filter(
     (s) => s.is_accurate !== null && s.sentiment !== 0
   );
   const days = nonNeutralSentiments.length;

@@ -29,3 +29,8 @@ export const STOCK_COUNT = {
 export const EXCHANGE_RATE = {
   USD_KRW: 1450,
 } as const;
+
+// 예측 성공률 계산 기간 (일)
+export const PREDICTION = {
+  SUCCESS_RATE_DAYS: 30,
+} as const;
