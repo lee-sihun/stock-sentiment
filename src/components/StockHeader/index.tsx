@@ -1,5 +1,5 @@
 import { getStocks } from "@/services/stocks/getStocks";
-import { formatKRW, formatUSD } from "@/utils/formatNumber";
+import { formatKRW, formatByCurrency } from "@/utils/formatNumber";
 import Info from "@public/svgs/info.svg";
 import StockHeaderSkeleton from "./StockHeaderSkeleton";
 import { unstable_cache } from "next/cache";
@@ -30,10 +30,10 @@ export default async function StockHeader({ symbol }: { symbol: string }) {
         </div>
         <div className="flex items-center gap-[10px]">
           <span className="text-[36px] font-bold leading-[43px]">
-            {formatKRW(stock.current_price ?? 0, true)}
+            {formatKRW(stock.current_price_krw ?? 0, true, "KRW")}
           </span>
           <span className="text-[22px] font-medium text-[#AAAFBE] max-[1248px]:hidden">
-            ${formatUSD(stock.current_price ?? 0)}
+            {formatByCurrency(stock.current_price ?? 0, stock.currency)}
           </span>
         </div>
       </div>

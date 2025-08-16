@@ -25,13 +25,13 @@ export default function StockListItem({ stock, index }: StockListItemProps) {
           </div>
         </div>
         <div className="h-full flex-1 shrink basis-[139px] flex items-center justify-end max-[1248px]:mr-[24px] max-[1248px]:basis-auto">
-          {formatKRW(stock.current_price ?? 0, true)}
+          {formatKRW(stock.current_price_krw ?? 0, true, "KRW")}
         </div>
         <div className="h-full flex-1 shrink basis-[248px] flex items-center justify-end max-[1248px]:hidden">
-          {formatKRW(stock.volume ?? 0)}
+          {formatKRW(stock.volume_krw ?? 0, false, "KRW")}
         </div>
         <div className="h-full flex-1 shrink basis-[228px] flex items-center justify-end pr-[28px] max-[1248px]:hidden">
-          {formatKRW(stock.market_cap ?? 0)}
+          {formatKRW(stock.market_cap_krw ?? 0, false, "KRW")}
         </div>
       </li>
     </Link>
