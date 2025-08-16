@@ -27,7 +27,18 @@ export const STOCK_COUNT = {
 
 // 환율
 export const EXCHANGE_RATE = {
-  USD_KRW: 1450,
+  // KRW 환율 (환율 API 에러 시 사용)
+  CURRENCY_TO_KRW: {
+    KRW: 1,
+    USD: 1390,
+    EUR: 1630,
+    JPY: 9.5,
+    CNY: 190,
+    HKD: 180,
+    GBP: 1890,
+    TWD: 45,
+    SAR: 370,
+  } as const,
 } as const;
 
 // 예측 성공률 계산 기간 (일)
