@@ -1,6 +1,8 @@
 import { EXCHANGE_RATE } from "@/config/constants";
 import { unstable_cache } from "next/cache";
 
+type RateMeta = { rate: number; fetchedAt: string };
+
 async function fetchRateOnce(base: string): Promise<number> {
   const code = base.toUpperCase();
   const url = `https://m.search.naver.com/p/csearch/content/qapirender.nhn?key=calculator&pkid=141&q=%ED%99%98%EC%9C%A8&where=m&u1=keb&u6=standardUnit&u7=0&u3=${encodeURIComponent(
@@ -25,9 +27,18 @@ async function fetchRateOnce(base: string): Promise<number> {
 }
 
 export async function getExchangeRate(base: string): Promise<number> {
+  const meta = await getExchangeRateWithMeta(base);
+  return meta.rate;
+}
+
+export async function getExchangeRateWithMeta(base: string): Promise<RateMeta> {
   const code = base.toUpperCase();
-  return unstable_cache(() => fetchRateOnce(code), ["exchange-rate", code], {
-    revalidate: 60 * 60 * 24,
-    tags: [`exchange-rate:${code}`],
-  })();
+  return unstable_cache(
+    async () => {
+      const rate = await fetchRateOnce(code);
+      return { rate, fetchedAt: new Date().toISOString() } as RateMeta;
+    },
+    ["exchange-rate-meta", code],
+    { revalidate: 60 * 60 * 24, tags: [`exchange-rate:${code}`] }
+  )();
 }
